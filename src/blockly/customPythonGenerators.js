@@ -85,6 +85,55 @@ pythonGenerator.forBlock["break_loop"] = function () {
   return "break\n";
 };
 
+
+// ------------------ Arithmetic Operators ------------------
+
+const arithmeticBlocks = ["add", "subtract", "multiply", "divide", "mod", "power"];
+const arithmeticSymbols = { add: "+", subtract: "-", multiply: "*", divide: "/", mod: "%", power: "**" };
+
+arithmeticBlocks.forEach((type) => {
+  pythonGenerator.forBlock[`operator_${type}`] = function (block) {
+    const a = pythonGenerator.valueToCode(block, "A", pythonGenerator.ORDER_ATOMIC) || "0";
+    const b = pythonGenerator.valueToCode(block, "B", pythonGenerator.ORDER_ATOMIC) || "0";
+    let order = ["multiply", "divide", "mod"].includes(type)
+      ? pythonGenerator.ORDER_MULTIPLICATIVE
+      : type === "power"
+      ? pythonGenerator.ORDER_EXPONENTIATION
+      : pythonGenerator.ORDER_ADDITIVE;
+    return [`${a} ${arithmeticSymbols[type]} ${b}`, order];
+  };
+});
+
+// --- Comparison Operators ---
+const comparisonBlocks = ["equals", "not_equals", "less", "less_equal", "greater", "greater_equal"];
+const comparisonSymbols = { equals: "==", not_equals: "!=", less: "<", less_equal: "<=", greater: ">", greater_equal: ">=" };
+
+comparisonBlocks.forEach((type) => {
+ pythonGenerator.forBlock[`operator_${type}`] = function (block) {
+    const a = pythonGenerator.valueToCode(block, "A", pythonGenerator.ORDER_ATOMIC) || "0";
+    const b = pythonGenerator.valueToCode(block, "B", pythonGenerator.ORDER_ATOMIC) || "0";
+    return [`${a} ${comparisonSymbols[type]} ${b}`, pythonGenerator.ORDER_RELATIONAL];
+  };
+});
+
+// --- Logical Operators ---
+pythonGenerator.forBlock["operator_and"] = function (block) {
+  const a = pythonGenerator.valueToCode(block, "A", pythonGenerator.ORDER_ATOMIC) || "False";
+  const b = pythonGenerator.valueToCode(block, "B", pythonGenerator.ORDER_ATOMIC) || "False";
+  return [`${a} and ${b}`,pythonGenerator.ORDER_LOGICAL_AND];
+};
+
+pythonGenerator.forBlock["operator_or"] = function (block) {
+  const a = pythonGenerator.valueToCode(block, "A", pythonGenerator.ORDER_ATOMIC) || "False";
+  const b = pythonGenerator.valueToCode(block, "B", pythonGenerator.ORDER_ATOMIC) || "False";
+  return [`${a} or ${b}`, pythonGenerator.ORDER_LOGICAL_OR];
+};
+
+pythonGenerator.forBlock["operator_not"] = function (block) {
+  const a = pythonGenerator.valueToCode(block, "A", pythonGenerator.ORDER_ATOMIC) || "False";
+  return [`not ${a}`, pythonGenerator.ORDER_LOGICAL_NOT];
+};
+
 // Tuple
 pythonGenerator.forBlock["tuple_create_with"] = block => {
   const items =

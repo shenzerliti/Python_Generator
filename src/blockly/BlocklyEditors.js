@@ -83,15 +83,7 @@ export default function BlocklyEditor() {
   return (
     <div style={{ display: "flex", gap: "20px" }}>
       {/* Blockly Workspace */}
-      <div
-        ref={blocklyDiv} className="blocklyDiv"
-        style={{
-          height: "500px",
-          width: "50%",
-          border: "1px solid #ccc",
-          borderRadius: "4px",
-        }}
-      />
+      <div ref={blocklyDiv} className="blocklyDiv" style={{height: "500px",width: "50%",border: "1px solid #ccc",borderRadius: "4px",}}/>
 
       {/* Code + Output Panel */}
       <div style={{ width: "50%", display: "flex", flexDirection: "column" }}>
@@ -99,32 +91,9 @@ export default function BlocklyEditor() {
 
         {/* Action Buttons */}
         <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
-          <button
-            onClick={generatePython}
-            style={{
-              padding: "8px 16px",
-              background: "#4CAF50",
-              color: "#fff",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
-            Generate Code
-          </button>
-          <button
-            onClick={runCode}
-            style={{
-              padding: "8px 16px",
-              background: "#2196F3",
-              color: "#fff",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
-            Run Code
-          </button>
+          <button onClick={generatePython} style={{padding: "8px 16px",background: "#dad61aff",color: "#000000ff",border: "none",borderRadius: "4px",cursor: "pointer",}}>Generate Code</button>
+          <button onClick={runCode} style={{padding: "8px 16px",background: "#e40b0bff",color: "#000000ff",border: "none",borderRadius: "4px",cursor: "pointer",}}>Run Code</button>
+          
         </div>
 
         {/* Alternate Display */}
@@ -132,7 +101,8 @@ export default function BlocklyEditor() {
           <pre
             style={{
               flex: 1,
-              background: "#f5f5f5",
+              background: "#000000ff",
+              color: "#ffffffff",
               padding: "10px",
               borderRadius: "4px",
               overflow: "auto",

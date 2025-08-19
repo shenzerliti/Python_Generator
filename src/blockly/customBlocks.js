@@ -13,16 +13,63 @@ Blockly.Blocks["import_module"] = {
   }
 };
 
-Blockly.Blocks["from_import"] = {
+const arithmeticBlocks = ["add", "subtract", "multiply", "divide", "mod", "power"];
+const arithmeticSymbols = { add: "+", subtract: "-", multiply: "*", divide: "/", mod: "%", power: "**" };
+
+arithmeticBlocks.forEach((type) => {
+  Blockly.Blocks[`operator_${type}`] = {
+    init: function () {
+      this.appendValueInput("A").setCheck("Number").appendField("number");
+      this.appendValueInput("B").setCheck("Number").appendField(arithmeticSymbols[type]);
+      this.setInputsInline(true);
+      this.setOutput(true, "Number");
+      this.setColour(230);
+    },
+  };
+});
+
+// --- Comparison Operators ---
+const comparisonBlocks = ["equals", "not_equals", "less", "less_equal", "greater", "greater_equal"];
+const comparisonSymbols = { equals: "==", not_equals: "!=", less: "<", less_equal: "<=", greater: ">", greater_equal: ">=" };
+
+comparisonBlocks.forEach((type) => {
+  Blockly.Blocks[`operator_${type}`] = {
+    init: function () {
+      this.appendValueInput("A").appendField("number");
+      this.appendValueInput("B").appendField(comparisonSymbols[type]);
+      this.setInputsInline(true);
+      this.setOutput(true, "Boolean");
+      this.setColour(160);
+    },
+  };
+});
+
+// --- Logical Operators ---
+Blockly.Blocks["operator_and"] = {
   init: function () {
-    this.appendDummyInput()
-      .appendField("from")
-      .appendField(new Blockly.FieldTextInput("module_name"), "MODULE")
-      .appendField("import")
-      .appendField(new Blockly.FieldTextInput("function_name"), "NAME");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(30);
+    this.appendValueInput("A").setCheck("Boolean").appendField("boolean");
+    this.appendValueInput("B").setCheck("Boolean").appendField("and");
+    this.setInputsInline(true);
+    this.setOutput(true, "Boolean");
+    this.setColour(210);
+  },
+};
+
+Blockly.Blocks["operator_or"] = {
+  init: function () {
+    this.appendValueInput("A").setCheck("Boolean").appendField("boolean");
+    this.appendValueInput("B").setCheck("Boolean").appendField("or");
+    this.setInputsInline(true);
+    this.setOutput(true, "Boolean");
+    this.setColour(210);
+  },
+};
+
+Blockly.Blocks["operator_not"] = {
+  init: function () {
+    this.appendValueInput("A").setCheck("Boolean").appendField("not");
+    this.setOutput(true, "Boolean");
+    this.setColour(210);
   },
 };
 

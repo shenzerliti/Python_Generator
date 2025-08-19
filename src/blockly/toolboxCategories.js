@@ -55,13 +55,28 @@ const toolboxCategories = `
     <!-- Variables -->
     <category name="Variables" custom="VARIABLE" colour="330"></category>
 
-    <!-- Operators -->
-    <category name="Operators" colour="120">
-      <block type="math_arithmetic"></block>
-      <block type="logic_compare"></block>
-      <block type="logic_operation"></block>
-      <block type="logic_negate"></block>
-    </category>
+      <category name="Operators" colour="230">
+    <!-- Arithmetic -->
+    <block type="operator_add"></block>
+    <block type="operator_subtract"></block>
+    <block type="operator_multiply"></block>
+    <block type="operator_divide"></block>
+    <block type="operator_mod"></block>
+    <block type="operator_power"></block>
+
+    <!-- Comparison -->
+    <block type="operator_equals"></block>
+    <block type="operator_not_equals"></block>
+    <block type="operator_less"></block>
+    <block type="operator_less_equal"></block>
+    <block type="operator_greater"></block>
+    <block type="operator_greater_equal"></block>
+
+    <!-- Logical -->
+    <block type="operator_and"></block>
+    <block type="operator_or"></block>
+    <block type="operator_not"></block>
+  </category>
 
     <!-- String -->
     <category name="String" colour="160">
