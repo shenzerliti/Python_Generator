@@ -1,0 +1,17 @@
+import "./dictblock";
+import "./exceptionhandling";
+import "./filehandling";
+import "./funblock";
+import "./importblocks";
+import "./inputoutput";
+import "./list1";
+import "./logicblock";
+import "./loopblock";
+import "./moreblock";
+import "./operators";
+import "./set";
+import "./string";
+import "./tuple";
+import "./variableblocks";
+import "./classblock";
+import "./objectblock";

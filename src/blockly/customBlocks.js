@@ -11,7 +11,7 @@ Blockly.Blocks["import_module"] = {
       .appendField(new Blockly.FieldTextInput("math"), "MODULE");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(210);
+    this.setColour(255);
     this.setTooltip("Import a Python module");
   },
 };
@@ -25,10 +25,28 @@ Blockly.Blocks["from_import"] = {
       .appendField(new Blockly.FieldTextInput("sqrt"), "NAME");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(210);
+    this.setColour(255);
     this.setTooltip("From module import function/class");
   },
 };
+Blockly.Blocks["import_random"] = {
+  init: function () {
+    this.appendDummyInput().appendField("import random");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(65);
+  },
+};
+
+Blockly.Blocks["import_time"] = {
+  init: function () {
+    this.appendDummyInput().appendField("import time");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(65);
+  },
+};
+
 
 // ===================================================================
 // === OPERATORS (Math, Comparison, Logic) ===
@@ -91,6 +109,28 @@ Blockly.Blocks["operator_not"] = {
   },
 };
 
+/* -----------------------
+       STRING BLOCKS
+------------------------- */
+Blockly.Blocks["string_reverse"] = {
+  init: function () {
+    this.appendValueInput("TEXT").setCheck("String").appendField("reverse string");
+    this.setOutput(true, "String");
+    this.setColour(160);
+  },
+};
+
+Blockly.Blocks["string_update"] = {
+  init: function () {
+    this.appendValueInput("TEXT").setCheck("String").appendField("update string");
+    this.appendValueInput("INDEX").setCheck("Number").appendField("at index");
+    this.appendValueInput("CHAR").setCheck("String").appendField("with");
+    this.setOutput(true, "String");
+    this.setColour(160);
+  },
+};
+
+
 // ===================================================================
 // === PRINT & INPUT ===
 // ===================================================================
@@ -102,19 +142,11 @@ Blockly.Blocks["print_text"] = {
     this.setColour(60);
   },
 };
-
 Blockly.Blocks["print_hello"] = {
   init: function () {
-    this.appendDummyInput().appendField("print Hello World");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-  },
-};
-
-Blockly.Blocks["print"] = {
-  init: function () {
-    this.appendValueInput("TEXT").appendField("print");
+    this.appendDummyInput()
+      .appendField("print")
+      .appendField(new Blockly.FieldTextInput(" "), "TEXT");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
@@ -128,6 +160,17 @@ Blockly.Blocks["input"] = {
       .appendField(new Blockly.FieldTextInput("Enter text:"), "PROMPT");
     this.setOutput(true, "String");
     this.setColour(160);
+  },
+};
+
+Blockly.Blocks["input_number"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("input number")
+      .appendField(new Blockly.FieldTextInput("Enter a number"), "PROMPT");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Takes numeric input");
   },
 };
 
@@ -232,6 +275,73 @@ Blockly.Blocks["dict_create_with"] = {
   },
 };
 
+/* -----------------------
+        LIST BLOCKS
+------------------------- */
+Blockly.Blocks["list_append"] = {
+  init: function () {
+    this.appendValueInput("LIST").setCheck("Array").appendField("append to list");
+    this.appendValueInput("ITEM").setCheck(null).appendField("item");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(260);
+  },
+};
+
+Blockly.Blocks["list_slice"] = {
+  init: function () {
+    this.appendValueInput("LIST").setCheck("Array").appendField("slice list");
+    this.appendValueInput("START").setCheck("Number").appendField("start");
+    this.appendValueInput("END").setCheck("Number").appendField("end");
+    this.setOutput(true, "Array");
+    this.setColour(260);
+  },
+};
+
+Blockly.Blocks["list_reverse"] = {
+  init: function () {
+    this.appendValueInput("LIST").setCheck("Array").appendField("reverse list");
+    this.setOutput(true, "Array");
+    this.setColour(260);
+  },
+};
+
+/* -----------------------
+       TUPLE BLOCK
+------------------------- */
+Blockly.Blocks["create_tuple"] = {
+  init: function () {
+    this.appendDummyInput().appendField("create tuple");
+    this.appendValueInput("ITEMS").setCheck("Array");
+    this.setOutput(true, "Array");
+    this.setColour(45);
+  },
+};
+
+/* -----------------------
+     DICTIONARY BLOCKS
+------------------------- */
+Blockly.Blocks["dict_set"] = {
+  init: function () {
+    this.appendValueInput("DICT").setCheck("Object").appendField("set in dictionary");
+    this.appendValueInput("KEY").setCheck("String").appendField("key");
+    this.appendValueInput("VALUE").setCheck(null).appendField("value");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(20);
+  },
+};
+
+Blockly.Blocks["dict_get"] = {
+  init: function () {
+    this.appendValueInput("DICT").setCheck("Object").appendField("get from dictionary");
+    this.appendValueInput("KEY").setCheck("String").appendField("key");
+    this.setOutput(true, null);
+    this.setColour(20);
+  },
+};
+
+
 // ===================================================================
 // === CLASSES ===
 // ===================================================================
@@ -289,6 +399,25 @@ Blockly.Blocks["class_call_method"] = {
     this.setTooltip("Call a method on an instance");
   },
 };
+Blockly.Blocks["class_with_constructor"] = {
+  init: function () {
+    this.appendDummyInput().appendField("create class").appendField(new Blockly.FieldTextInput("ClassName"), "CLASS");
+    this.appendStatementInput("BODY").setCheck(null).appendField("with body");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour("#9A57E7");
+  },
+};
+
+Blockly.Blocks["create_object_with_args"] = {
+  init: function () {
+    this.appendDummyInput().appendField("create object of").appendField(new Blockly.FieldTextInput("ClassName"), "CLASS");
+    this.appendValueInput("ARGS").setCheck("Array").appendField("with args");
+    this.setOutput(true, null);
+    this.setColour("#9A57E7");
+  },
+};
+
 
 // ===================================================================
 // === OBJECTS ===
@@ -566,4 +695,60 @@ Blockly.Blocks["button_press"] = {
     this.setColour("#ff9800");
     this.setTooltip("Simulate a button press event");
   }
+};
+
+// ===================================================================
+// === FUNCTIONS ===
+// ===================================================================
+Blockly.Blocks["function_return"] = {
+  init: function () {
+    this.appendValueInput("VALUE").appendField("return");
+    this.setPreviousStatement(true);
+    this.setColour(290);
+  },
+};
+
+// ===================================================================
+// === Texts ===
+// ===================================================================
+
+Blockly.Blocks["text"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField('"')
+      .appendField(new Blockly.FieldTextInput(""), "TEXT")
+      .appendField('"');
+    this.setOutput(true, "String");
+    this.setColour(160);
+  },
+};
+
+Blockly.Blocks["text_print"] = {
+  init: function () {
+    this.appendValueInput("TEXT")
+      .setCheck(null)
+      .appendField("print");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+  },
+};
+
+Blockly.Blocks["text_join"] = {
+  init: function () {
+    this.appendValueInput("A").setCheck(null).appendField("join text");
+    this.appendValueInput("B").setCheck(null).appendField("with");
+    this.setOutput(true, "String");
+    this.setColour(160);
+  },
+};
+
+Blockly.Blocks["input_text"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("input")
+      .appendField(new Blockly.FieldTextInput("Enter text:"), "PROMPT");
+    this.setOutput(true, "String");
+    this.setColour(160);
+  },
 };

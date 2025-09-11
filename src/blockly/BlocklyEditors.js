@@ -4,11 +4,14 @@ import * as Blockly from "blockly";
 import "blockly/blocks";
 import { pythonGenerator } from "blockly/python";
 import toolboxCategories from "./toolboxCategories";
-import "./customBlocks";
-import "./customPythonGenerators";
-import CodeDisplay from "./CodeDisplay";
+// import "./customBlocks";
+// import "./customPythonGenerators";
+import "./allblocks";
+import CodeDisplay from "./CodeDisplay"; 
+import "../css/main.css";
 
-export default function BlocklyEditor() {
+
+export default function BlocklyEditor({ onWorkspaceReady }) {
   const blocklyDiv = useRef(null);
   const workspaceRef = useRef(null);
   const [code, setCode] = useState("");
@@ -35,6 +38,11 @@ export default function BlocklyEditor() {
       trashcan: true,
     });
 
+      // 👇 Send workspace up to App.js
+    if (onWorkspaceReady) {
+      onWorkspaceReady(workspaceRef.current);
+    }
+
     // Live code updates
     workspaceRef.current.addChangeListener(() => {
       const liveCode = pythonGenerator.workspaceToCode(workspaceRef.current);
@@ -48,7 +56,7 @@ export default function BlocklyEditor() {
         workspaceRef.current = null;
       }
     };
-  }, []);
+  }, [ onWorkspaceReady ]);
 
   // // --- Safe toolbox update helper (call this when you want to change categories) ---
   // const changeCategory = (newToolboxXml) => {
@@ -100,25 +108,25 @@ export default function BlocklyEditor() {
   };
 
   return (
-    <div style={{ display: "flex", gap: "20px" }}>
+    <div className="blockly-editor-container">
       {/* Blockly Workspace */}
-      <div ref={blocklyDiv} className="blocklyDiv" style={{height: "500px",width: "50%",border: "1px solid #ccc",borderRadius: "4px",}} />
+      <div ref={blocklyDiv} className="blocklyDiv"/>
 
       {/* Code + Output Panel */}
-      <div style={{ width: "50%", display: "flex", flexDirection: "column" }}>
-        <h3>{showOutput ? "Output" : "Generated Python Code"}</h3>
+      <div className="code-panel">
+        {/* <h3>{showOutput ? "Output" : "Generated Python Code"}</h3> */}
 
         {/* Action Buttons */}
-        <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
-          <button onClick={generatePython} style={{padding: "8px 16px",background: "#dad61aff",color: "#000000ff",border: "none",borderRadius: "4px",cursor: "pointer",}}>Generate Code</button>
-          <button onClick={runCode}style={{padding: "8px 16px",background: "#e40b0bff",color: "#000000ff",border: "none",borderRadius: "4px",cursor: "pointer",}}>Run Code </button>
+        <div style={{ marginTop: "0px", display: "flex", gap: "20px" }}>
+          <button onClick={generatePython} >Generate Code</button>
+          <button onClick={runCode}>Run code </button>
         </div>
 
         {/* Alternate Display */}
         {!showOutput ? (
-          <pre style={{flex: 1,background: "#000000ff",color: "#ffffffff",padding: "10px",borderRadius: "4px",overflow: "auto",}}> <CodeDisplay code={code} /> </pre>
+          <pre > <CodeDisplay code={code} /> </pre>
         ) : (
-          <pre style={{flex: 1,background: "#000",color: "#0f0",padding: "10px",borderRadius: "4px",overflow: "auto",}}>{output}</pre>
+          <pre >{output}</pre>
         )}
       </div>
     </div>

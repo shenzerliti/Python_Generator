@@ -1,6 +1,6 @@
 // src/blockly/customPythonGenerators.js
 import "blockly/blocks";
-import { PythonGenerator, pythonGenerator } from "blockly/python";
+import { pythonGenerator } from "blockly/python";
 import "blockly/python";
 
 
@@ -17,16 +17,29 @@ pythonGenerator.forBlock["from_import"] = block => {
   const name = block.getFieldValue("NAME");
   return `from ${module} import ${name}\n`;
 };
+pythonGenerator.forBlock["input_number"] = function (block) {
+  var prompt = block.getFieldValue("PROMPT");
+  return [`int(input("${prompt}"))`, pythonGenerator.ORDER_ATOMIC];
+};
+pythonGenerator.forBlock["import_random"] = function () {
+  return "import random\n";
+};
 
+pythonGenerator.forBlock["import_time"] = function () {
+  return "import time\n";
+};
 
 // ===================================================================
 // === STATEMENTS CATEGORY ===========================================
 // ===================================================================
-pythonGenerator.forBlock["print_hello"] = () => "print('Hello, World!')\n";
+pythonGenerator.forBlock["print_hello"] = (block) => {
+  const text = block.getFieldValue("TEXT") || "";
+  return `print('${text}')\n`;
+};
 
-pythonGenerator.forBlock["print"] = block => {
-  const msg = pythonGenerator.valueToCode(block, "TEXT", pythonGenerator.ORDER_NONE) || "''";
-  return `print(${msg})\n`;
+pythonGenerator.forBlock["print_text"] = (block) => {
+  const text = block.getFieldValue("TEXT"); // Get user input
+  return `print('${text}')\n`;
 };
 
 pythonGenerator.forBlock["input"] = block => {
@@ -128,6 +141,11 @@ pythonGenerator.forBlock["operator_not"] = block => {
 // ===================================================================
 // === DATA STRUCTURES CATEGORY ======================================
 // ===================================================================
+pythonGenerator.forBlock["create_tuple"] = function (block) {
+  var items = pythonGenerator.valueToCode(block, "ITEMS", pythonGenerator.ORDER_ATOMIC);
+  return [`tuple(${items})`, pythonGenerator.ORDER_ATOMIC];
+};
+
 pythonGenerator.forBlock["tuple_create_with"] = block => {
   const items = new Array(block.itemCount_ || 0)
     .fill(null)
@@ -153,6 +171,36 @@ pythonGenerator.forBlock["dict_create_with"] = block => {
   return [`{${items.join(", ")}}`, pythonGenerator.ORDER_ATOMIC];
 };
 
+pythonGenerator.forBlock["dict_set"] = function (block) {
+  var dict = pythonGenerator.valueToCode(block, "DICT", pythonGenerator.ORDER_ATOMIC);
+  var key = pythonGenerator.valueToCode(block, "KEY", pythonGenerator.ORDER_ATOMIC);
+  var value = pythonGenerator.valueToCode(block, "VALUE", pythonGenerator.ORDER_ATOMIC);
+  return `${dict}[${key}] = ${value}\n`;
+};
+
+pythonGenerator.forBlock["dict_get"] = function (block) {
+  var dict = pythonGenerator.valueToCode(block, "DICT", pythonGenerator.ORDER_ATOMIC);
+  var key = pythonGenerator.valueToCode(block, "KEY", pythonGenerator.ORDER_ATOMIC);
+  return [`${dict}.get(${key})`, pythonGenerator.ORDER_ATOMIC];
+};
+
+pythonGenerator.forBlock["list_append"] = function (block) {
+  var list = pythonGenerator.valueToCode(block, "LIST", pythonGenerator.ORDER_ATOMIC);
+  var item = pythonGenerator.valueToCode(block, "ITEM", pythonGenerator.ORDER_ATOMIC);
+  return `${list}.append(${item})\n`;
+};
+
+pythonGenerator.forBlock["list_slice"] = function (block) {
+  var list = pythonGenerator.valueToCode(block, "LIST",pythonGenerator.ORDER_ATOMIC);
+  var start = pythonGenerator.valueToCode(block, "START", pythonGenerator.ORDER_ATOMIC);
+  var end = pythonGenerator.valueToCode(block, "END", pythonGenerator.ORDER_ATOMIC);
+  return [`${list}[${start}:${end}]`, pythonGenerator.ORDER_ATOMIC];
+};
+
+pythonGenerator.forBlock["list_reverse"] = function (block) {
+  var list = pythonGenerator.valueToCode(block, "LIST", pythonGenerator.ORDER_ATOMIC);
+  return [`${list}[::-1]`, pythonGenerator.ORDER_ATOMIC];
+};
 
 // ===================================================================
 // === CONTROL CATEGORY ==============================================
@@ -220,7 +268,17 @@ pythonGenerator.forBlock["class_call_method"] = function (block) {
   return `${instanceName}.${methodName}()\n`;
 };
 
+pythonGenerator.forBlock["class_with_constructor"] = function (block) {
+  var name = block.getFieldValue("CLASS");
+  var body = pythonGenerator.statementToCode(block, "BODY");
+  return `class ${name}:\n    def __init__(self):\n${body || "        pass"}\n`;
+};
 
+pythonGenerator.forBlock["create_object_with_args"] = function (block) {
+  var name = block.getFieldValue("CLASS");
+  var args =pythonGenerator.valueToCode(block, "ARGS", pythonGenerator.ORDER_ATOMIC);
+  return [`${name}(*${args})`, pythonGenerator.ORDER_ATOMIC];
+};
 // ===================================================================
 // === COMMENTS CATEGORY =============================================
 // ===================================================================
@@ -334,7 +392,7 @@ pythonGenerator.forBlock["requests_post"] = block => {
 };
 
 // ===================================================================
-// === REQUESTS CATEGORY =============================================
+// === STIMULATORS =============================================
 // ===================================================================
 
 pythonGenerator.forBlock["traffic_light"] = () => {
@@ -354,5 +412,31 @@ pythonGenerator.forBlock["led_control"] =  (block) => {
 
 pythonGenerator.forBlock["button_press"] = () => {
   const code = `input("Press Enter to simulate button...")\nTrue`;
-  return [code, PythonGenerator.ORDER_ATOMIC];
+  return [code, pythonGenerator.ORDER_ATOMIC];
+};
+
+// ===================================================================
+// === Text =============================================
+// ===================================================================
+
+pythonGenerator.forBlock["text"] = function (block) {
+  const text = block.getFieldValue("TEXT") || "";
+  return [`'${text}'`, pythonGenerator.ORDER_ATOMIC];
+};
+
+pythonGenerator.forBlock["text_print"] = function (block) {
+  const value_text = pythonGenerator.valueToCode(block, "TEXT", pythonGenerator.ORDER_NONE) || "''";
+  return `print(${value_text})\n`;
+};
+
+// PYTHON GENERATOR
+pythonGenerator.forBlock["text_join"] = function (block) {
+  const a = pythonGenerator.valueToCode(block, "A", pythonGenerator.ORDER_NONE) || "''";
+  const b = pythonGenerator.valueToCode(block, "B", pythonGenerator.ORDER_NONE) || "''";
+  return [`str(${a}) + str(${b})`, pythonGenerator.ORDER_ATOMIC];
+};
+
+pythonGenerator.forBlock["input_text"] = function (block) {
+  const prompt = block.getFieldValue("PROMPT") || "";
+  return [`input('${prompt}')`, pythonGenerator.ORDER_ATOMIC];
 };
