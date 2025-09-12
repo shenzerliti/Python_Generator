@@ -45,7 +45,9 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
 
     // Live code updates
     workspaceRef.current.addChangeListener(() => {
+      pythonGenerator.init(workspaceRef.current);   // 🔹 Initialize
       const liveCode = pythonGenerator.workspaceToCode(workspaceRef.current);
+      pythonGenerator.finish();  
       setCode(liveCode);
       setShowOutput(false);
     });
@@ -68,7 +70,9 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
   // Generate Python code
   const generatePython = () => {
     if (workspaceRef.current) {
+      pythonGenerator.init(workspaceRef.current);    // 🔹 Initialize
       const generatedCode = pythonGenerator.workspaceToCode(workspaceRef.current);
+      pythonGenerator.finish(); 
       setCode(generatedCode);
       setShowOutput(false);
     }

@@ -35,9 +35,8 @@ const toolboxCategories = `
       <block type="module_call2">
         <value name="NAME"><shadow type="inlinetxt"></shadow></value>
       </block>
-      <block type="import_module"></block>
-      <block type="from_import"></block>
     </category>
+    
     <category name="Input & Output" colour="#D15C08">
       <block type="varnum">
         <value name="NAME"><shadow type="inlinetxt"></shadow></value>
@@ -75,15 +74,7 @@ const toolboxCategories = `
       <block type="end"></block>
     </category>
 
-    <category name="Variables" custom="VARIABLE" colour="%{BKY_VARIABLES_HUE}">
-      <block type="variables_set">
-        <value name="NAME">
-          <shadow type="inlinetxt">
-            <field name="text">abc</field>
-          </shadow>
-        </value>
-      </block>
-    </category>
+    <category name="Variable" custom="VARIABLE" colour="%{BKY_VARIABLES_HUE}"> </category>
 
     <category name="Variables" colour="#d39c8b">
       <block type="variable"></block>
@@ -110,6 +101,25 @@ const toolboxCategories = `
         </value>
       </block>
     </category>
+    
+  <!-- Math -->
+  <category name="Math" colour="%{BKY_MATH_HUE}">
+    <block type="math_number"></block>
+    <block type="math_arithmetic"></block>
+   <block type="math_modulo"></block>
+    <block type="math_single">
+   <field name="OP">ROOT</field>
+    </block>
+  </category>
+
+  <!-- Text -->
+  <category name="Text" colour="%{BKY_TEXTS_HUE}">
+    <block type="text"></block>
+    <block type="text_print"></block>
+    <block type="text_join"></block>
+    <block type="text_prompt_input"></block> <!-- our custom input block -->
+  </category>
+
 
     <category name="Operators" colour="#32CD32">
       <block type="mathoperator">
@@ -172,14 +182,21 @@ const toolboxCategories = `
       </block>
       <block type="fori"><value name="NAME1"><shadow type="inlinetxt"></shadow></value></block>
       <block type="while"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
+      <block type="controls_repeat_ext"></block>
+      <block type="controls_whileUntil"></block>
       <block type="true"></block>
     </category>
 
     <category name="Logic" colour="#0CC0FF">
+
       <block type="controls_if"></block>
       <block type="if"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
       <block type="elif3"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
       <block type="else"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_boolean"></block>
+      <block type="logic_negate"></block>
     </category>
 
   </category>
@@ -187,6 +204,11 @@ const toolboxCategories = `
   <category name="Datatypes" colour="#C0FF0C">
 
     <category name="List" colour="#DB7093">
+    <block type="lists_create_with">
+      <mutation items="3"></mutation>
+    </block>
+    <block type="lists_getIndex"></block>
+    <block type="lists_length"></block>
       <block type="list1"><value name="NAME1"><shadow type="inlinetxt"><field name="text">1,2,3</field></shadow></value></block>
       <block type="listin"><value name="NAME"><shadow type="inlinetxt"><field name="text">1,2,3</field></shadow></value></block>
       <block type="list3"><value name="NAME"><shadow type="inlinetxt"><field name="text">default</field></shadow></value></block>
@@ -229,14 +251,9 @@ const toolboxCategories = `
 
   </category>
 
-  <category name="Functions" colour="#FF4500">
-    <block type="fu1"><value name="abc"><shadow type="inlinetxt"></shadow></value><value name="xyz"><shadow type="inlinetxt"></shadow></value></block>
-    <block type="fu2"><value name="abc"><shadow type="inlinetxt"></shadow></value><value name="pqr"><shadow type="inlinetxt"></shadow></value></block>
-    <block type="fun"><value name="NAME"><shadow type="inlinetxt"></shadow></value><value name="NAME1"><shadow type="inlinetxt"></shadow></value></block>
-    <block type="fu3"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
-    <block type="fu4"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
-    <block type="global"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
-  </category>
+      <category name="Functions" custom="PROCEDURE" colour="#FF4500"></category>
+
+
 
   <category name="Exception handling" colour="#ff3396">
     <block type="e1"></block>
@@ -274,6 +291,12 @@ const toolboxCategories = `
     <block type="modify"><value name="NAME"><shadow type="inlinetxt"><field name="text">default</field></shadow></value><value name="NAME2"><shadow type="inlinetxt"><field name="text">default</field></shadow></value></block>
   </category>
 
+  <!-- Custom -->
+  <category name="Custom" colour="#17becf">
+    <block type="random_choice"></block> <!-- Custom random -->
+    <block type="time_sleep"></block>   <!-- Custom time.sleep -->
+  </category>
+
   <category name="More" colour="#b533ff">
     <block type="m1"><value name="NAME"><shadow type="inlinetxt"><field name="text"></field></shadow></value></block>
     <block type="m3"><value name="NAME"><shadow type="inlinetxt"><field name="text"></field></shadow></value></block>
@@ -291,3 +314,12 @@ const toolboxCategories = `
 `;
 
 export default toolboxCategories;
+
+  // <category name="Functions"  colour="#FF4500">
+  //   <block type="fu1"><value name="abc"><shadow type="inlinetxt"></shadow></value><value name="xyz"><shadow type="inlinetxt"></shadow></value></block>
+  //   <block type="fu2"><value name="abc"><shadow type="inlinetxt"></shadow></value><value name="pqr"><shadow type="inlinetxt"></shadow></value></block>
+  //   <block type="fun"><value name="NAME"><shadow type="inlinetxt"></shadow></value><value name="NAME1"><shadow type="inlinetxt"></shadow></value></block>
+  //   <block type="fu3"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
+  //   <block type="fu4"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
+  //   <block type="global"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
+  // </category>

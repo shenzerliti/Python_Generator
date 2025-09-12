@@ -15,3 +15,6 @@ import "./tuple";
 import "./variableblocks";
 import "./classblock";
 import "./objectblock";
+import "./text";
+import "./time";
+import "./random";
