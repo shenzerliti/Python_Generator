@@ -34,8 +34,23 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
   useEffect(() => {
     workspaceRef.current = Blockly.inject(blocklyDiv.current, {
       toolbox: toolboxCategories,
-      scrollbars: true,
-      trashcan: true,
+  collapse: true,           // allow blocks to collapse
+  comments: true,
+  disable: false,
+  maxBlocks: Infinity,
+  trashcan: true,
+  horizontalLayout: false,
+  toolboxPosition: 'start',
+  scrollbars: true,
+  sounds: true,
+  zoom: {
+    controls: true,
+    wheel: true,
+    startScale: 1.0,
+    maxScale: 3,
+    minScale: 0.3,
+    scaleSpeed: 1.2
+  }
     });
 
       // 👇 Send workspace up to App.js
