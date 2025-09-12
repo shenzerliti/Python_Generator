@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  publish = "build"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Optional: If you use React Router or client-side routing
+# this makes sure Netlify redirects all routes to index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
