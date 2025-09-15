@@ -56,13 +56,13 @@ function FileOpenSaveButtons({ workspace }) {
     <div style={{ display: "flex", gap: "20px" }}>
       {/* OPEN */}
       <button className="nav-btn" onClick={handleOpenClick}>
-        <img src={process.env.PUBLIC_URL + "/images/open.png"} alt="Open" className="icon" />
+        <img src={`${process.env.PUBLIC_URL}/images/open.png`} alt="Open" className="icon" />
         <span className="label">OPEN</span>
       </button>
 
       {/* SAVE */}
       <button className="nav-btn" onClick={handleSaveClick}>
-        <img src={process.env.PUBLIC_URL + "/images/save.png"}  alt="Save" className="icon" />
+        <img src={`${process.env.PUBLIC_URL}/images/saves.png`}  alt="Save" className="icon" />
         <span className="label">SAVE</span>
       </button>
 
