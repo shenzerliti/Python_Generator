@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/Python_Generator/static/css/main.f18ba603.css",
-    "main.js": "/Python_Generator/static/js/main.dd5a454f.js",
-    "index.html": "/Python_Generator/index.html"
+    "main.css": "./static/css/main.f18ba603.css",
+    "main.js": "./static/js/main.2a7fb604.js",
+    "index.html": "./index.html"
   },
   "entrypoints": [
     "static/css/main.f18ba603.css",
-    "static/js/main.dd5a454f.js"
+    "static/js/main.2a7fb604.js"
   ]
 }
