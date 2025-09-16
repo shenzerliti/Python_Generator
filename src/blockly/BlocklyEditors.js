@@ -133,7 +133,6 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
 
       {/* Code + Output Panel */}
       <div className="code-panel">
-        {/* <h3>{showOutput ? "Output" : "Generated Python Code"}</h3> */}
 
         {/* Action Buttons */}
         <div style={{ marginTop: "0px", display: "flex", gap: "20px" }}>

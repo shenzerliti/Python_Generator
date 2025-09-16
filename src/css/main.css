@@ -1,6 +1,6 @@
 /* Blockly workspace */
 .blocklyDiv {
-  height: calc(100vh - 70px); /* match navbar height */
+  height: calc(100vh - 80px); /* match navbar height */
   width: 60%;
   border: 1px solid #f7f7f7;
   border-radius: 6px;
@@ -9,7 +9,7 @@
   background-position: center;
   background-size: cover;
   cursor: pointer;
-  
+  /* background-image: url("/public/images/bg1.png"); */
   
   
 }
@@ -19,11 +19,7 @@
   display: flex;
   width: 100%;
   height: calc(100vh - 70px); /* match navbar height */
-  overflow: hidden;
-  /* background-image: url("/src/img/bg.png"); */
-  /* background-size:50% 50%; */
-  background-position: center;
-  background-repeat: no-repeat;
+  /* overflow: hidden; */
 }
 
 /* Left side toolbox panel (auto handled by Blockly) */
@@ -80,4 +76,38 @@
   overflow: auto;
   font-family: monospace;
   font-size: 14px;
+}
+
+
+/* 📱 Responsive Design for Mobile */
+@media (max-width: 767px) {
+  .blockly-editor-container {
+    flex-direction: column; /* stack vertically */
+    height: auto; /* allow natural height */
+    overflow: visible;
+  }
+
+  .blocklyDiv {
+    width: 100% !important; /* full width */
+    height: 60vh; /* enough space for toolbox */
+  }
+
+  .code-panel {
+    width: 100% !important; /* full width below Blockly */
+    height: auto;
+    margin-top: 10px;
+    padding: 15px;
+  }
+
+  .code-panel pre {
+    font-size: 13px;
+    max-height: 30vh; /* prevent too tall output */
+  }
+
+  .code-panel button {
+    width: 48%; /* two buttons side by side */
+    margin: 5px 1%;
+    font-size: 13px;
+    padding: 8px;
+  }
 }
