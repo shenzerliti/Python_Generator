@@ -149,3 +149,34 @@ pythonGenerator.forBlock['increment'] = function(block) {
   var code = value_name+dropdown_name+value_xyz+'\n';
   return code;
 };
+
+Blockly.Blocks['math_assignment'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldVariable("item"), "VAR") // variable picker
+        .appendField("=");
+    this.appendValueInput("LEFT")
+        .setCheck("Number");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([["+","+"],["-","-"],["*","*"],["/","/"]]), "OPERATOR");
+    this.appendValueInput("RIGHT")
+        .setCheck("Number");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#32CD32');
+    this.setTooltip("Assign result of operation to a variable (e.g., sum = a + b)");
+    this.setHelpUrl("");
+  }
+};
+
+pythonGenerator.forBlock['math_assignment'] = function(block) {
+  var variable = pythonGenerator.nameDB_.getName(
+    block.getFieldValue('VAR'),
+    Blockly.VARIABLE_CATEGORY_NAME
+  );
+  var left = pythonGenerator.valueToCode(block, 'LEFT', pythonGenerator.ORDER_ATOMIC) || '0';
+  var operator = block.getFieldValue('OPERATOR');
+  var right = pythonGenerator.valueToCode(block, 'RIGHT', pythonGenerator.ORDER_ATOMIC) || '0';
+  var code = variable + " = " + left + " " + operator + " " + right + "\n";
+  return code;
+};

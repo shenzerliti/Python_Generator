@@ -122,6 +122,7 @@ const toolboxCategories = `
 
 
     <category name="Operators" colour="#32CD32">
+    <block type="math_assignment"></block>
       <block type="mathoperator">
         <field name="OPERATOR">ADD</field>
         <value name="NAME1"><shadow type="inlinetxt"><field name="text">1</field></shadow></value>

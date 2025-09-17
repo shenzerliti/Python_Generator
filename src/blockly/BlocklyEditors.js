@@ -60,11 +60,15 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
 
     // Live code updates
     workspaceRef.current.addChangeListener(() => {
+      try{
       pythonGenerator.init(workspaceRef.current);   // 🔹 Initialize
       const liveCode = pythonGenerator.workspaceToCode(workspaceRef.current);
       pythonGenerator.finish();  
       setCode(liveCode);
       setShowOutput(false);
+      } catch (err) {
+        console.error("Blockly code generation error:", err);
+      }
     });
 
     return () => {
@@ -85,11 +89,15 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
   // Generate Python code
   const generatePython = () => {
     if (workspaceRef.current) {
+      try{
       pythonGenerator.init(workspaceRef.current);    // 🔹 Initialize
       const generatedCode = pythonGenerator.workspaceToCode(workspaceRef.current);
       pythonGenerator.finish(); 
       setCode(generatedCode);
       setShowOutput(false);
+        } catch (err) {
+      console.error("Python generation failed:", err);
+    }
     }
   };
 
@@ -97,12 +105,13 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
   const runCode = () => {
     if (!code) return;
 
+     setOutput("");
+    setShowOutput(true);
+
     function outf(text) {
-      setOutput((prev) => prev + text);
+      setOutput((prev) => prev + text + "\n");
     }
 
-    setOutput("");
-    setShowOutput(true);
 
     window.Sk.configure({
       output: outf,
@@ -116,14 +125,20 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
         return window.Sk.builtinFiles["files"][x];
       },
     });
-
-    try {
-      window.Sk.misceval.asyncToPromise(() =>
-        window.Sk.importMainWithBody("<stdin>", false, code, true)
-      );
-    } catch (err) {
+try {
+  window.Sk.misceval
+    .asyncToPromise(() =>
+      window.Sk.importMainWithBody("<stdin>", false, code, true)
+    )
+    .then(() => {
+      console.log("Execution finished");
+    })
+    .catch((err) => {
       setOutput(err.toString());
-    }
+    });
+} catch (err) {
+  setOutput(err.toString());
+}
   };
 
   return (

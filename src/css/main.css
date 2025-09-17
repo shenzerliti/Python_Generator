@@ -10,8 +10,6 @@
   background-size: cover;
   cursor: pointer;
   /* background-image: url("/public/images/bg1.png"); */
-  
-  
 }
 
 /* Container layout */
@@ -26,7 +24,6 @@
 .blocklyToolboxDiv {
   background: #ffffff !important;
   border-right: 1px solid #ccc;
-
 }
 
 /* Right panel: Code & Output */
@@ -101,7 +98,9 @@
 
   .code-panel pre {
     font-size: 13px;
-    max-height: 30vh; /* prevent too tall output */
+    max-height: 40vh; /* enough space for scrolling */
+    overflow-y: auto; /* enable vertical scroll */
+    overflow-x: auto; /* allow horizontal scroll for long lines */
   }
 
   .code-panel button {
