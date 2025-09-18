@@ -64,7 +64,7 @@
   flex: 1;                 /* take remaining height */
   margin-top: 90px;        /* match navbar height */
   width: 100%;
-  overflow: hidden;
+
 }
 
 /* Default styles (Desktop First OR Mobile First as base) */
@@ -153,5 +153,26 @@
   .workspace-container {
     width: 100%;
     height: 90vh;
+  }
+}
+/* Allow body to scroll */
+html, body {
+  height: auto;   /* don’t force 100vh */
+  min-height: 100vh;
+  overflow-y: auto; /* enable vertical scrolling */
+}
+
+/* Container layout */
+.blockly-editor-container {
+  display: flex;
+  width: 100%;
+  height: auto;        /* let it grow naturally */
+  min-height: calc(100vh - 70px); /* still fill screen */
+}
+
+/* On desktop we still want split view */
+@media (min-width: 768px) {
+  .blockly-editor-container {
+    height: calc(100vh - 70px); /* lock height only for desktop */
   }
 }

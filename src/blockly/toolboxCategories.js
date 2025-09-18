@@ -4,7 +4,7 @@ const toolboxCategories = `
 
   <category id="c1" name="PYTHON" colour="#ffe600">
 
-    <category name="Import" colour="#f7707f">
+    <category name="Import" colour="#c93664">
       <block type="import_from">
         <value name="NAME"><shadow type="inlinetxt"></shadow></value>
         <value name="NAME1"><shadow type="inlinetxt"></shadow></value>
@@ -13,10 +13,9 @@ const toolboxCategories = `
         <value name="NAME"><shadow type="inlinetxt"></shadow></value>
         <value name="NAME1"><shadow type="inlinetxt"></shadow></value>
       </block>
-      <block type="import">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-      </block>
+      <block type="import"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
       <block type="wait"></block>
+      <block type="sleep"></block>
       <block type="time"></block>
       <block type="random1"></block>
       <block type="random2"></block>
@@ -25,57 +24,26 @@ const toolboxCategories = `
       <block type="pause"></block>
       <block type="calender"></block>
       <block type="month"></block>
-      <block type="dir">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-      </block>
+      <block type="dir"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
       <block type="re"></block>
-      <block type="module_call">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-      </block>
-      <block type="module_call2">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-      </block>
+      <block type="module_call"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
+      <block type="module_call2"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
     </category>
     
     <category name="Input & Output" colour="#D15C08">
-      <block type="varnum">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-      </block>
-      <block type="inputno">
-        <value name="NAME">
-          <shadow type="inlinetxt">
-            <field name="text">Enter your number</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="inputstr">
-        <value name="NAME">
-          <shadow type="inlinetxt">
-            <field name="text">Enter your number</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="printnew">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-      </block>
-
-      <block type="extra">
-        <value name="NAME1">
-          <shadow type="inlinetxt">
-            <field name="text">abc</field>
-          </shadow>
-        </value>
-        <value name="NAME">
-          <shadow type="inlinetxt">
-            <field name="text">abc</field>
-          </shadow>
-        </value>
-      </block>
+      <block type="varnum"> <value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
+      <block type="inputno"> <value name="NAME"> <shadow type="inlinetxt"><field name="text">Enter your number</field></shadow></value></block>
+      <block type="inputstr"><value name="NAME"><shadow type="inlinetxt"><field name="text">Enter your number</field></shadow></value>  </block>
+      <block type="printnew"><value name="NAME"><shadow type="inlinetxt"></shadow></value> </block>
+      <block type="extra"><value name="NAME1"><shadow type="inlinetxt"><field name="text">abc</field></shadow></value><value name="NAME"><shadow type="inlinetxt"><field name="text">abc</field></shadow></value></block>
       <block type="end"></block>
+      <block type="print_default"></block>
+      <block type="print_input"></block>
+      <block type="print_concat_value"></block>
+      <block type="print_concat_string"></block>
     </category>
 
     <category name="Variable" custom="VARIABLE" colour="%{BKY_VARIABLES_HUE}"> </category>
-
     <category name="Variables" colour="#d39c8b">
       <block type="variable"></block>
       <block type="varinput">
@@ -185,7 +153,7 @@ const toolboxCategories = `
       <block type="while"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
       <block type="controls_repeat_ext"></block>
       <block type="controls_whileUntil"></block>
-      <block type="true"></block>
+      <block type="true" colour="#0000CD"></block>
     </category>
 
     <category name="Logic" colour="#0CC0FF">
@@ -251,10 +219,18 @@ const toolboxCategories = `
     </category>
 
   </category>
-
-      <category name="Functions" custom="PROCEDURE" colour="#FF4500"></category>
-
-
+  <category name="Function" colour="#FF4500">
+  <category name="Functions" custom="PROCEDURE" colour="#6E4486">
+  <!-- Built-in procedure blocks will appear here automatically -->
+</category>
+<category name="Custom Functions" colour="#FF4500">
+  <block type="def_func"></block>
+  <block type="func_call_stmt"></block>
+  <block type="func_call"></block>
+  <block type="return"></block>
+  <block type="lambda"></block>
+</category>
+</category>
 
   <category name="Exception handling" colour="#ff3396">
     <block type="e1"></block>

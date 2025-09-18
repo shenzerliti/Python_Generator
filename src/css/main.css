@@ -1,6 +1,6 @@
 /* Blockly workspace */
 .blocklyDiv {
-  height: calc(100vh - 80px); /* match navbar height */
+  height: calc(100vh - 70px); /* match navbar height */
   width: 60%;
   border: 1px solid #f7f7f7;
   border-radius: 6px;

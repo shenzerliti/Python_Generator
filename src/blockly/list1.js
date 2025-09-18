@@ -2,7 +2,6 @@ import "blockly/blocks";
 import { pythonGenerator } from "blockly/python";
 import * as Blockly from "blockly/core";
 
-
 Blockly.Blocks['list1'] = {
   init: function() {
     this.appendValueInput("NAME1")
@@ -21,12 +20,12 @@ Blockly.Blocks['list1'] = {
 };
 
 pythonGenerator.forBlock['list1'] = function(block) {
-  var variable_name = pythonGenerator.nameDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
+  var variableId = block.getFieldValue('NAME');
+  var variableName = pythonGenerator.nameDB_.getName(variableId, Blockly.VARIABLE_CATEGORY_NAME);
   var text_name1 = pythonGenerator.valueToCode(block, 'NAME1', pythonGenerator.ORDER_FUNCTION_CALL) || '';
-  var code = variable_name + ' = [' + text_name1 + ']\n';
+  var code = variableName + ' = [' + text_name1 + ']\n';
   return code;
 };
-
 
 Blockly.Blocks['listin'] = {
   init: function() {
@@ -45,12 +44,12 @@ Blockly.Blocks['listin'] = {
 };
 
 pythonGenerator.forBlock['listin'] = function(block) {
-  var variable_name = pythonGenerator.nameDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
+  var variableId = block.getFieldValue('NAME');
+  var variableName = pythonGenerator.nameDB_.getName(variableId, Blockly.VARIABLE_CATEGORY_NAME);
   var value_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_FUNCTION_CALL) || '';
-  var code = variable_name + ' = [' + value_name + ']\n';
+  var code = variableName + ' = [' + value_name + ']\n';
   return code;
 };
-
 
 Blockly.Blocks['list3'] = {
   init: function() {
@@ -71,7 +70,6 @@ pythonGenerator.forBlock['list3'] = function(block) {
   var code = '[' + text_name + ']';
   return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
-
 
 Blockly.Blocks['list_in_list'] = {
   init: function() {
@@ -96,7 +94,6 @@ pythonGenerator.forBlock['list_in_list'] = function(block) {
   return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
-
 Blockly.Blocks['list'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -116,7 +113,6 @@ pythonGenerator.forBlock['list'] = function(block) {
   var code = 'list(' + value_name + ')';
   return [code,  pythonGenerator.ORDER_FUNCTION_CALL];
 };
-
 
 Blockly.Blocks['insert'] = {
   init: function() {
@@ -143,11 +139,11 @@ Blockly.Blocks['insert'] = {
 pythonGenerator.forBlock['insert'] = function(block) {
   var text_name1 = pythonGenerator.valueToCode(block, 'NAME1',  pythonGenerator.ORDER_FUNCTION_CALL) || '""';
   var number_name2 = pythonGenerator.valueToCode(block, 'NAME2',  pythonGenerator.ORDER_FUNCTION_CALL) || '0';
-  var variable_name = pythonGenerator.nameDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
-  var code = variable_name + '.insert(' + number_name2 + ', ' + text_name1 + ')\n';
+  var variableId = block.getFieldValue('NAME');
+  var variableName = pythonGenerator.nameDB_.getName(variableId, Blockly.VARIABLE_CATEGORY_NAME);
+  var code = variableName + '.insert(' + number_name2 + ', ' + text_name1 + ')\n';
   return code;
 };
-
 
 Blockly.Blocks['replaced'] = {
   init: function() {
@@ -168,13 +164,13 @@ Blockly.Blocks['replaced'] = {
 };
 
 pythonGenerator.forBlock['replaced'] = function(block) {
-  var variable_name = pythonGenerator.nameDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
+  var variableId = block.getFieldValue('NAME');
+  var variableName = pythonGenerator.nameDB_.getName(variableId, Blockly.VARIABLE_CATEGORY_NAME);
   var number_name1 = pythonGenerator.valueToCode(block, 'NAME1',  pythonGenerator.ORDER_FUNCTION_CALL) || '0';
   var value_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_ATOMIC) || '""';
-  var code = variable_name + '[' + number_name1 + '] = ' + value_name + '\n';
+  var code = variableName + '[' + number_name1 + '] = ' + value_name + '\n';
   return code;
 };
-
 
 Blockly.Blocks['sort'] = {
   init: function() {
@@ -197,7 +193,6 @@ pythonGenerator.forBlock['sort'] = function(block) {
   var code = value_name + '.' + dropdown_name + '()\n';
   return code;
 };
-
 
 Blockly.Blocks['multiple'] = {
   init: function() {
@@ -224,7 +219,6 @@ pythonGenerator.forBlock['multiple'] = function(block) {
   return [code,  pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
-
 Blockly.Blocks['sum'] = {
   init: function() {
     this.appendDummyInput()
@@ -243,7 +237,6 @@ pythonGenerator.forBlock['sum'] = function(block) {
   var code = 'sum(' + value_name + ')';
   return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
-
 
 Blockly.Blocks['del'] = {
   init: function() {
@@ -265,7 +258,6 @@ pythonGenerator.forBlock['del'] = function(block) {
   return code;
 };
 
-
 Blockly.Blocks['pop'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -285,9 +277,10 @@ Blockly.Blocks['pop'] = {
 };
 
 pythonGenerator.forBlock['pop'] = function(block) {
-  var variable_name = pythonGenerator.nameDB_.getName(block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
+  var variableId = block.getFieldValue('NAME');
+  var variableName = pythonGenerator.nameDB_.getName(variableId, Blockly.VARIABLE_CATEGORY_NAME);
   var dropdown_name1 = block.getFieldValue('NAME1');
   var value_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_FUNCTION_CALL) || '';
-  var code = variable_name + '.' + dropdown_name1 + '(' + value_name + ')\n';
+  var code = variableName + '.' + dropdown_name1 + '(' + value_name + ')\n';
   return code;
 };

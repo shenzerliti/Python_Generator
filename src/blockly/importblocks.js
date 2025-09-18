@@ -35,7 +35,7 @@ Blockly.Blocks['import_from'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour('#00cc00');
+        this.setColour('#c93664');
     }
 };
 
@@ -56,7 +56,7 @@ Blockly.Blocks['import_as'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour('#00cc00');
+        this.setColour('#c93664');
     }
 };
 
@@ -75,7 +75,7 @@ Blockly.Blocks['import'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour('#00cc00');
+        this.setColour('#c93664');
     }
 };
 
@@ -112,7 +112,18 @@ pythonGenerator.forBlock['month'] = function () {
     return ['month', pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
+// ---------------- SLEEP BLOCK ----------------
+Blockly.Blocks['sleep'] = {
+    init: function () {
+        this.appendDummyInput().appendField("sleep");
+        this.setOutput(true, null);
+        this.setColour('#c93664');
+    }
+};
 
+pythonGenerator.forBlock['sleep'] = function () {
+    return ['sleep', pythonGenerator.ORDER_FUNCTION_CALL];
+};
 // ---------------- TIME ----------------
 Blockly.Blocks['time'] = {
     init: function () {

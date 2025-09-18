@@ -2,8 +2,141 @@ import "blockly/blocks";
 import { pythonGenerator } from "blockly/python";
 import * as Blockly from "blockly/core";
 
+// Orange for custom functions
+const FUNC_COLOR = "#FF4500";
+// Purple for custom procedures
+const PROC_COLOR = "#9C27B0";
 
-// ---------------- Function Definition ----------------
+// Function definition block
+Blockly.Blocks['def_func'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("def")
+        .appendField(new Blockly.FieldTextInput("func"), "FUNC_NAME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput(""), "PARAMS")
+        .appendField(")");
+    this.appendStatementInput("BODY")
+        .setCheck(null);
+    this.setPreviousStatement(false, null);
+    this.setNextStatement(false, null);
+    this.setColour(FUNC_COLOR);
+    this.setTooltip("Define a function");
+    this.setHelpUrl("");
+  }
+};
+
+pythonGenerator.forBlock['def_func'] = function(block) {
+  var funcName = block.getFieldValue('FUNC_NAME');
+  var params = block.getFieldValue('PARAMS');
+  var statements = pythonGenerator.statementToCode(block, 'BODY');
+  var code = `def ${funcName}(${params}):\n${statements}`;
+  return code;
+};
+
+// Function call block (statement)
+Blockly.Blocks['func_call_stmt'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldTextInput("func"), "FUNC_NAME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput(""), "ARGS")
+        .appendField(")")
+        .appendField("# function call");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(FUNC_COLOR);
+    this.setTooltip("Call a function (statement)");
+    this.setHelpUrl("");
+  }
+};
+
+pythonGenerator.forBlock['func_call_stmt'] = function(block) {
+  var funcName = block.getFieldValue('FUNC_NAME');
+  var args = block.getFieldValue('ARGS');
+  var code = `${funcName}(${args})\n`;
+  return code;
+};
+
+// Function call block (output)
+Blockly.Blocks['func_call'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldTextInput("func"), "FUNC_NAME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput(""), "ARGS")
+        .appendField(")")
+        .appendField("# function call");
+    this.setOutput(true, null);
+    this.setColour(FUNC_COLOR);
+    this.setTooltip("Call a function (output)");
+    this.setHelpUrl("");
+  }
+};
+
+pythonGenerator.forBlock['func_call'] = function(block) {
+  var funcName = block.getFieldValue('FUNC_NAME');
+  var args = block.getFieldValue('ARGS');
+  var code = `${funcName}(${args})`;
+  return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+};
+
+// Return block
+Blockly.Blocks['return'] = {
+  init: function() {
+    this.appendValueInput("VALUE")
+        .setCheck(null)
+        .appendField("return(");
+    this.appendDummyInput()
+        .appendField(")");
+    this.setPreviousStatement(true, null);
+    this.setColour(FUNC_COLOR);
+    this.setTooltip("Return a value");
+    this.setHelpUrl("");
+  }
+};
+
+pythonGenerator.forBlock['return'] = function(block) {
+  var value = pythonGenerator.valueToCode(block, 'VALUE', pythonGenerator.ORDER_NONE) || '';
+  var code = `return ${value}\n`;
+  return code;
+};
+
+// Lambda block
+Blockly.Blocks['lambda'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("fn")
+        .appendField(new Blockly.FieldVariable("fn"), "FN_NAME")
+        .appendField("=")
+        .appendField("lambda")
+        .appendField(new Blockly.FieldVariable("x"), "PARAM")
+        .appendField(":");
+    this.appendValueInput("BODY")
+        .setCheck(null);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(FUNC_COLOR);
+    this.setTooltip("Lambda function");
+    this.setHelpUrl("");
+  }
+};
+
+pythonGenerator.forBlock['lambda'] = function(block) {
+  var fnId = block.getFieldValue('FN_NAME');
+  var fnName = pythonGenerator.nameDB_.getName(fnId, Blockly.VARIABLE_CATEGORY_NAME);
+  var paramId = block.getFieldValue('PARAM');
+  var paramName = pythonGenerator.nameDB_.getName(paramId, Blockly.VARIABLE_CATEGORY_NAME);
+  var body = pythonGenerator.valueToCode(block, 'BODY', pythonGenerator.ORDER_NONE) || '';
+  var code = `${fnName} = lambda ${paramName}: ${body}\n`;
+  return code;
+};
+
+// ---------------- Custom Procedure Blocks ----------------
+
+// Function definition (procedure)
 Blockly.Blocks['fu1'] = {
   init: function() {
     this.appendValueInput("abc")
@@ -19,8 +152,8 @@ Blockly.Blocks['fu1'] = {
         .setCheck(null);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#FF4500');
-    this.setTooltip("");
+    this.setColour(PROC_COLOR);
+    this.setTooltip("Custom procedure definition");
     this.setHelpUrl("");
   }
 };
@@ -33,7 +166,7 @@ pythonGenerator.forBlock['fu1'] = function(block) {
   return code;
 };
 
-// ---------------- Function Call (output) ----------------
+// Function call (output, procedure)
 Blockly.Blocks['fu2'] = {
   init: function() {
     this.appendValueInput("abc")
@@ -45,8 +178,8 @@ Blockly.Blocks['fu2'] = {
     this.appendDummyInput()
         .appendField(") # function call");
     this.setOutput(true, null);
-    this.setColour('#FF4500');
-    this.setTooltip("");
+    this.setColour(PROC_COLOR);
+    this.setTooltip("Custom procedure call (output)");
     this.setHelpUrl("");
   }
 };
@@ -58,7 +191,7 @@ pythonGenerator.forBlock['fu2'] = function(block) {
   return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
-// ---------------- Return Statement ----------------
+// Return statement (procedure)
 Blockly.Blocks['fu3'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -68,8 +201,8 @@ Blockly.Blocks['fu3'] = {
         .appendField(")");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#FF4500');
-    this.setTooltip("");
+    this.setColour(PROC_COLOR);
+    this.setTooltip("Custom procedure return statement");
     this.setHelpUrl("");
   }
 };
@@ -80,7 +213,7 @@ pythonGenerator.forBlock['fu3'] = function(block) {
   return code;
 };
 
-// ---------------- Lambda Function ----------------
+// Lambda function (procedure)
 Blockly.Blocks['fu4'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -92,8 +225,8 @@ Blockly.Blocks['fu4'] = {
     this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#FF4500');
-    this.setTooltip("");
+    this.setColour(PROC_COLOR);
+    this.setTooltip("Custom procedure lambda function");
     this.setHelpUrl("");
   }
 };
@@ -112,7 +245,7 @@ pythonGenerator.forBlock['fu4'] = function(block) {
   return code;
 };
 
-// ---------------- Function Assignment ----------------
+// Function assignment (procedure)
 Blockly.Blocks['fu5'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -121,8 +254,8 @@ Blockly.Blocks['fu5'] = {
     this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#FF4500');
-    this.setTooltip("");
+    this.setColour(PROC_COLOR);
+    this.setTooltip("Custom procedure assignment");
     this.setHelpUrl("");
   }
 };
@@ -137,7 +270,7 @@ pythonGenerator.forBlock['fu5'] = function(block) {
   return code;
 };
 
-// ---------------- Function Call (statement) ----------------
+// Function call (statement, procedure)
 Blockly.Blocks['fun'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -150,8 +283,8 @@ Blockly.Blocks['fun'] = {
         .appendField(") # function call");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#FF4500');
-    this.setTooltip("");
+    this.setColour(PROC_COLOR);
+    this.setTooltip("Custom procedure call (statement)");
     this.setHelpUrl("");
   }
 };
@@ -163,7 +296,7 @@ pythonGenerator.forBlock['fun'] = function(block) {
   return code;
 };
 
-// ---------------- Global Statement ----------------
+// Global statement (procedure)
 Blockly.Blocks['global'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -172,8 +305,8 @@ Blockly.Blocks['global'] = {
     this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#FF4500');
-    this.setTooltip("");
+    this.setColour(PROC_COLOR);
+    this.setTooltip("Custom procedure global statement");
     this.setHelpUrl("");
   }
 };

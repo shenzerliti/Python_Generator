@@ -174,3 +174,89 @@ pythonGenerator.forBlock['end'] = function(block) {
   var code = 'end=" "';
   return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
+
+
+// Simple print block with default text
+Blockly.Blocks['print_default'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("print")
+        .appendField(new Blockly.FieldTextInput("default"), "TEXT");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#D15C08');
+    this.setTooltip("Print default text");
+    this.setHelpUrl("");
+  }
+};
+
+pythonGenerator.forBlock['print_default'] = function(block) {
+  const text = block.getFieldValue('TEXT');
+  return `print(${JSON.stringify(text)})\n`;
+};
+
+
+
+// Print block with input field
+Blockly.Blocks['print_input'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Print")
+        .appendField(new Blockly.FieldTextInput("default"), "TEXT");
+    this.setOutput(true, null);
+    this.setColour('#D15C08');
+    this.setTooltip("Print input text");
+    this.setHelpUrl("");
+  }
+};
+
+pythonGenerator.forBlock['print_input'] = function(block) {
+  const text = block.getFieldValue('TEXT');
+  return [`print(${JSON.stringify(text)})`, pythonGenerator.ORDER_FUNCTION_CALL];
+};
+
+// Print block: print default + value
+Blockly.Blocks['print_concat_value'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("print")
+        .appendField(new Blockly.FieldTextInput("default"), "TEXT")
+        .appendField("+ value");
+    this.appendValueInput("VALUE")
+        .setCheck(null);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#D15C08');
+    this.setTooltip("Print default + value");
+    this.setHelpUrl("");
+  }
+};
+
+pythonGenerator.forBlock['print_concat_value'] = function(block) {
+  const text = block.getFieldValue('TEXT');
+  const value = pythonGenerator.valueToCode(block, 'VALUE', pythonGenerator.ORDER_NONE) || '""';
+  return `print(${JSON.stringify(text)} + str(${value}))\n`;
+};
+
+// Print block: print default + string
+Blockly.Blocks['print_concat_string'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("print")
+        .appendField(new Blockly.FieldTextInput("default"), "TEXT")
+        .appendField("+ string");
+    this.appendValueInput("STRING")
+        .setCheck(null);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour('#D15C08');
+    this.setTooltip("Print default + string");
+    this.setHelpUrl("");
+  }
+};
+
+pythonGenerator.forBlock['print_concat_string'] = function(block) {
+  const text = block.getFieldValue('TEXT');
+  const string = pythonGenerator.valueToCode(block, 'STRING', pythonGenerator.ORDER_NONE) || '""';
+  return `print(${JSON.stringify(text)} + str(${string}))\n`;
+};
