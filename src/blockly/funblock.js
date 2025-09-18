@@ -2,10 +2,6 @@ import "blockly/blocks";
 import { pythonGenerator } from "blockly/python";
 import * as Blockly from "blockly/core";
 
-// Orange for custom functions
-const FUNC_COLOR = "#FF4500";
-// Purple for custom procedures
-const PROC_COLOR = "#9C27B0";
 
 // Function definition block
 Blockly.Blocks['def_func'] = {
@@ -20,7 +16,7 @@ Blockly.Blocks['def_func'] = {
         .setCheck(null);
     this.setPreviousStatement(false, null);
     this.setNextStatement(false, null);
-    this.setColour(FUNC_COLOR);
+    this.setColour("#FF4500");
     this.setTooltip("Define a function");
     this.setHelpUrl("");
   }
@@ -46,7 +42,7 @@ Blockly.Blocks['func_call_stmt'] = {
         .appendField("# function call");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(FUNC_COLOR);
+    this.setColour("#FF4500");
     this.setTooltip("Call a function (statement)");
     this.setHelpUrl("");
   }
@@ -70,7 +66,7 @@ Blockly.Blocks['func_call'] = {
         .appendField(")")
         .appendField("# function call");
     this.setOutput(true, null);
-    this.setColour(FUNC_COLOR);
+    this.setColour("#FF4500");
     this.setTooltip("Call a function (output)");
     this.setHelpUrl("");
   }
@@ -92,7 +88,7 @@ Blockly.Blocks['return'] = {
     this.appendDummyInput()
         .appendField(")");
     this.setPreviousStatement(true, null);
-    this.setColour(FUNC_COLOR);
+    this.setColour("#FF4500");
     this.setTooltip("Return a value");
     this.setHelpUrl("");
   }
@@ -118,7 +114,7 @@ Blockly.Blocks['lambda'] = {
         .setCheck(null);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(FUNC_COLOR);
+    this.setColour("#FF4500");
     this.setTooltip("Lambda function");
     this.setHelpUrl("");
   }
@@ -134,9 +130,7 @@ pythonGenerator.forBlock['lambda'] = function(block) {
   return code;
 };
 
-// ---------------- Custom Procedure Blocks ----------------
-
-// Function definition (procedure)
+// ---------------- Function Definition ----------------
 Blockly.Blocks['fu1'] = {
   init: function() {
     this.appendValueInput("abc")
@@ -152,8 +146,8 @@ Blockly.Blocks['fu1'] = {
         .setCheck(null);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(PROC_COLOR);
-    this.setTooltip("Custom procedure definition");
+    this.setColour("#FF4500");
+    this.setTooltip("");
     this.setHelpUrl("");
   }
 };
@@ -166,7 +160,7 @@ pythonGenerator.forBlock['fu1'] = function(block) {
   return code;
 };
 
-// Function call (output, procedure)
+// ---------------- Function Call (output) ----------------
 Blockly.Blocks['fu2'] = {
   init: function() {
     this.appendValueInput("abc")
@@ -178,8 +172,8 @@ Blockly.Blocks['fu2'] = {
     this.appendDummyInput()
         .appendField(") # function call");
     this.setOutput(true, null);
-    this.setColour(PROC_COLOR);
-    this.setTooltip("Custom procedure call (output)");
+    this.setColour('#FF4500');
+    this.setTooltip("");
     this.setHelpUrl("");
   }
 };
@@ -191,7 +185,7 @@ pythonGenerator.forBlock['fu2'] = function(block) {
   return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
-// Return statement (procedure)
+// ---------------- Return Statement ----------------
 Blockly.Blocks['fu3'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -201,8 +195,8 @@ Blockly.Blocks['fu3'] = {
         .appendField(")");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(PROC_COLOR);
-    this.setTooltip("Custom procedure return statement");
+    this.setColour('#FF4500');
+    this.setTooltip("");
     this.setHelpUrl("");
   }
 };
@@ -213,7 +207,7 @@ pythonGenerator.forBlock['fu3'] = function(block) {
   return code;
 };
 
-// Lambda function (procedure)
+// ---------------- Lambda Function ----------------
 Blockly.Blocks['fu4'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -225,8 +219,8 @@ Blockly.Blocks['fu4'] = {
     this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(PROC_COLOR);
-    this.setTooltip("Custom procedure lambda function");
+    this.setColour('#FF4500');
+    this.setTooltip("");
     this.setHelpUrl("");
   }
 };
@@ -245,7 +239,7 @@ pythonGenerator.forBlock['fu4'] = function(block) {
   return code;
 };
 
-// Function assignment (procedure)
+// ---------------- Function Assignment ----------------
 Blockly.Blocks['fu5'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -254,8 +248,8 @@ Blockly.Blocks['fu5'] = {
     this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(PROC_COLOR);
-    this.setTooltip("Custom procedure assignment");
+    this.setColour('#FF4500');
+    this.setTooltip("");
     this.setHelpUrl("");
   }
 };
@@ -270,7 +264,7 @@ pythonGenerator.forBlock['fu5'] = function(block) {
   return code;
 };
 
-// Function call (statement, procedure)
+// ---------------- Function Call (statement) ----------------
 Blockly.Blocks['fun'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -283,8 +277,8 @@ Blockly.Blocks['fun'] = {
         .appendField(") # function call");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(PROC_COLOR);
-    this.setTooltip("Custom procedure call (statement)");
+    this.setColour('#FF4500');
+    this.setTooltip("");
     this.setHelpUrl("");
   }
 };
@@ -296,7 +290,7 @@ pythonGenerator.forBlock['fun'] = function(block) {
   return code;
 };
 
-// Global statement (procedure)
+// ---------------- Global Statement ----------------
 Blockly.Blocks['global'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -305,8 +299,8 @@ Blockly.Blocks['global'] = {
     this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(PROC_COLOR);
-    this.setTooltip("Custom procedure global statement");
+    this.setColour('#FF4500');
+    this.setTooltip("");
     this.setHelpUrl("");
   }
 };
