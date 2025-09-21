@@ -8,7 +8,7 @@ Blockly.Blocks['variables_set'] = {
     this.appendValueInput("NAME")
         .setCheck(null)
         .appendField("set")
-        .appendField(new Blockly.FieldVariable("%{BKY_VARIABLES_DEFAULT_NAME}"), "VAR")
+        .appendField(new Blockly.FieldVariable("item"), "VAR")
         .appendField("to");
     this.setOutput(true, null);
     this.setColour('#d39c8b');
@@ -20,8 +20,8 @@ pythonGenerator.forBlock['variables_set'] = function(block) {
       block.getFieldValue('VAR'),
       Blockly.VARIABLE_CATEGORY_NAME);
   const value_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_ATOMIC) || '0';
-  const code = variable_name + ' = ' + value_name;
-  return [code, pythonGenerator.ORDER_ATOMIC];
+  const code = variable_name + ' = ' + value_name+'\n';
+  return code;
 };
 
 // Variable block

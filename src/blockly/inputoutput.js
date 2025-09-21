@@ -26,7 +26,7 @@ pythonGenerator.forBlock['varnum'] = function(block) {
 Blockly.Blocks['inputno'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField(new Blockly.FieldDropdown([["int","int"], ["float","float"], ["complex","complex"]]), "abc")
+            .appendField(new Blockly.FieldDropdown([["int","int"], ["float","float"], ["complex","complex"]]), "TYPE")
             .appendField("input (");
         this.appendValueInput("NAME")
             .setCheck(null);
@@ -40,9 +40,9 @@ Blockly.Blocks['inputno'] = {
 };
 
 pythonGenerator.forBlock['inputno'] = function(block) {
-    var dropdown_abc = block.getFieldValue('abc');
+    var dropdown_type = block.getFieldValue('TYPE') || "int";   // must match exactly
     var text_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_FUNCTION_CALL) || '""';
-    var code = dropdown_abc + '(input(' + text_name + '))';
+    var code = dropdown_type + '(input(' + text_name + '))';
     return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 

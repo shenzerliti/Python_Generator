@@ -26,100 +26,67 @@ pythonGenerator.forBlock['infinitewhile'] = function(block) {
 };
 
 /* ========= FOR LOOP (range) ========= */
-Blockly.Blocks['for'] = {
+Blockly.Blocks['for_range'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("for")
-        .appendField(new Blockly.FieldVariable("i"), "NAME")
+        .appendField(new Blockly.FieldVariable("i"), "VAR")
         .appendField("in range");
-    this.appendValueInput("NAME1")
+    this.appendValueInput("RANGE")
         .setCheck(null);
-    this.appendStatementInput("NAME2")
-        .setCheck(null);
+    this.appendStatementInput("DO")
+        .setCheck(null)
+        .appendField("do");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour('#0000CD');
-    this.setTooltip("For loop using range.");
-    this.setHelpUrl("");
   }
 };
 
-pythonGenerator.forBlock['for'] = function(block) {
-  var variable_name = pythonGenerator.variableDB_.getName(block.getFieldValue('NAME'), Blockly.VARIABLE_CATEGORY_NAME);
-  var value_name1 = pythonGenerator.valueToCode(block, 'NAME1', pythonGenerator.ORDER_ATOMIC) || '0';
-  var statements_name2 = pythonGenerator.statementToCode(block, 'NAME2') || '';
-  var code = 'for ' + variable_name + ' in range(' + value_name1 + '):\n' +
-             pythonGenerator.prefixLines(statements_name2, pythonGenerator.INDENT);
-  return code;
-};
-
-/* ========= FOR LOOP (iterable) ========= */
-Blockly.Blocks['fori'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("for")
-        .appendField(new Blockly.FieldVariable("i"), "NAME")
-        .appendField("in");
-    this.appendValueInput("NAME1")
-        .setCheck(null);
-    this.appendStatementInput("NAME2")
-        .setCheck(null);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour('#0000CD');
-    this.setTooltip("For loop over iterable.");
-    this.setHelpUrl("");
-  }
-};
-
-pythonGenerator.forBlock['fori'] = function(block) {
-  var variable_name = pythonGenerator.variableDB_.getName(block.getFieldValue('NAME'), Blockly.VARIABLE_CATEGORY_NAME);
-  var value_name1 = pythonGenerator.valueToCode(block, 'NAME1', pythonGenerator.ORDER_ATOMIC) || '[]';
-  var statements_name2 = pythonGenerator.statementToCode(block, 'NAME2') || '';
-  var code = 'for ' + variable_name + ' in ' + value_name1 + ':\n' +
-             pythonGenerator.prefixLines(statements_name2, pythonGenerator.INDENT);
+pythonGenerator.forBlock['for_range'] = function(block) {
+  var range = pythonGenerator.valueToCode(block, 'RANGE', pythonGenerator.ORDER_NONE) || '0';
+  var statements = pythonGenerator.statementToCode(block, 'DO');
+  var varId = block.getFieldValue('VAR');
+  var varName = pythonGenerator.nameDB_.getName(varId, Blockly.VARIABLE_CATEGORY_NAME);
+  var code = `for ${varName} in range(${range}):\n${pythonGenerator.prefixLines(statements, pythonGenerator.INDENT)}`;
   return code;
 };
 
 /* ========= WHILE LOOP ========= */
-Blockly.Blocks['while'] = {
+Blockly.Blocks['while_do'] = {
   init: function() {
-    this.appendDummyInput()
-        .appendField("while");
-    this.appendValueInput("NAME")
-        .setCheck(null);
-    this.appendStatementInput("NAME1")
-        .setCheck(null);
+    this.appendDummyInput().appendField("while");
+    this.appendValueInput("COND").setCheck(null);
+    this.appendStatementInput("DO").setCheck(null).appendField("do");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour('#0000CD');
-    this.setTooltip("While loop with condition.");
+  }
+};
+
+pythonGenerator.forBlock['while_do'] = function(block) {
+  var cond = pythonGenerator.valueToCode(block, 'COND', pythonGenerator.ORDER_ATOMIC) || 'False';
+  var statements_do = pythonGenerator.statementToCode(block, 'DO') || '';
+  return `while ${cond}:\n${pythonGenerator.prefixLines(statements_do, pythonGenerator.INDENT)}`;
+};
+
+
+Blockly.Blocks['while_loop'] = {
+  init: function () {
+    this.appendValueInput("CONDITION")
+      .setCheck(true)
+      .appendField("while");
+    this.setPreviousStatement(true, null);
+    this.appendStatementInput(true,null);
+    this.setNextStatement(true, null);
+    this.setColour('#0000CD'); 
+    this.setTooltip("Repeat while the condition is true");
     this.setHelpUrl("");
   }
 };
 
-pythonGenerator.forBlock['while'] = function(block) {
-  var value_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_ATOMIC) || 'False';
-  var statements_name1 = pythonGenerator.statementToCode(block, 'NAME1') || '';
-  var code = 'while ' + value_name + ':\n' +
-             pythonGenerator.prefixLines(statements_name1, pythonGenerator.INDENT);
+pythonGenerator.forBlock['while_loop'] = function (block) {
+  const condition = pythonGenerator.valueToCode(block, 'CONDITION', pythonGenerator.ORDER_NONE) || 'True';
+  const code = `while ${condition}:\n    pass\n`;  // empty body, just pass
   return code;
-};
-
-/* ========= TRUE/FALSE DROPDOWN ========= */
-Blockly.Blocks['true'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["True","True"], ["False","False"]]), "NAME");
-    this.setOutput(true, null);
-    this.setColour('#0000CD');
-    this.setTooltip("Boolean True/False.");
-    this.setHelpUrl("");
-  }
-};
-
-pythonGenerator.forBlock['true'] = function(block) {
-  var dropdown_name = block.getFieldValue('NAME');
-  var code = dropdown_name;
-  return [code, pythonGenerator.ORDER_ATOMIC];
 };

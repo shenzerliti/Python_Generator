@@ -1,6 +1,7 @@
 // src/FileOpenSaveButtons.jsx
 import React, { useRef } from "react";
 import * as Blockly from "blockly";
+import { pythonGenerator } from "blockly/python";
 import "./App.css";
 
 function FileOpenSaveButtons({ workspace }) {
@@ -29,28 +30,41 @@ function FileOpenSaveButtons({ workspace }) {
     reader.readAsText(file);
   };
 
-  // --- SAVE ---
-  const handleSaveClick = () => {
-    if (!workspace) {
-      alert("No workspace available to save.");
-      return;
+ // --- SAVE ---
+const handleSaveClick = () => {
+  if (!workspace) {
+    alert("No workspace available to save.");
+    return;
+  }
+
+  // Generate Python code from the Blockly workspace
+  let code = "";
+  const blocks = workspace.getTopBlocks(true);
+  blocks.forEach((block) => {
+    if (block.type !== "varinput") {
+      const blockCode = pythonGenerator.blockToCode(block);
+      code += Array.isArray(blockCode) ? blockCode[0] : blockCode;
     }
+  });
 
-   
-    const xml = Blockly.Xml.workspaceToDom(workspace);
-    const xmlText = Blockly.Xml.domToPrettyText(xml);
-    downloadFile(xmlText, "workspace.xml", "text/xml");
-  };
+  if (!code.trim()) {
+    alert("No Python code generated to save.");
+    return;
+  }
 
-  // --- Download helper ---
-  const downloadFile = (content, filename, type) => {
-    const blob = new Blob([content], { type });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = filename;
-    link.click();
-    URL.revokeObjectURL(link.href);
-  };
+  // Download as .py file
+  downloadFile(code, "generated_code.py", "text/x-python-script");
+};
+
+// --- Download helper ---
+const downloadFile = (content, filename, type) => {
+  const blob = new Blob([content], { type });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(link.href);
+};
 
   return (
     <div style={{ display: "flex", gap: "20px" }}>

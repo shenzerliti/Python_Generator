@@ -10,7 +10,6 @@ import "./allblocks";
 import CodeDisplay from "./CodeDisplay"; 
 import "../css/main.css";
 
-
 export default function BlocklyEditor({ onWorkspaceReady }) {
   const blocklyDiv = useRef(null);
   const workspaceRef = useRef(null);
@@ -32,86 +31,93 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
 
   // --- Inject Blockly once ---
   useEffect(() => {
-    workspaceRef.current = Blockly.inject(blocklyDiv.current, {
+    const workspace = Blockly.inject(blocklyDiv.current, {
       toolbox: toolboxCategories,
-  collapse: true,           // allow blocks to collapse
-  comments: true,
-  disable: false,
-  maxBlocks: Infinity,
-  trashcan: true,
-  horizontalLayout: false,
-  toolboxPosition: 'start',
-  scrollbars: true,
-  sounds: true,
-  zoom: {
-    controls: true,
-    wheel: true,
-    startScale: 1.0,
-    maxScale: 3,
-    minScale: 0.3,
-    scaleSpeed: 1.2
-  }
+      collapse: true,           // allow blocks to collapse
+      comments: true,
+      disable: false,
+      maxBlocks: Infinity,
+      trashcan: true,
+      horizontalLayout: false,
+      toolboxPosition: "start",
+      scrollbars: true,
+      sounds: true,
+      zoom: {
+        controls: true,
+        wheel: true,
+        startScale: 1.0,
+        maxScale: 3,
+        minScale: 0.3,
+        scaleSpeed: 1.2,
+      },
     });
 
-      // 👇 Send workspace up to App.js
+    workspaceRef.current = workspace;
+
+    // 👇 Send workspace up to App.js
     if (onWorkspaceReady) {
-      onWorkspaceReady(workspaceRef.current);
+      onWorkspaceReady(workspace);
     }
 
-    // Live code updates
-    workspaceRef.current.addChangeListener(() => {
-      try{
-      pythonGenerator.init(workspaceRef.current);   // 🔹 Initialize
-      const liveCode = pythonGenerator.workspaceToCode(workspaceRef.current);
-      pythonGenerator.finish();  
-      setCode(liveCode);
-      setShowOutput(false);
+    // ✅ Define listener separately so we can remove it later
+    const updateCode = () => {
+        if (!workspaceRef.current) return;
+      try {
+        pythonGenerator.init(workspace);
+        const liveCode = pythonGenerator.workspaceToCode(workspace);
+        pythonGenerator.finish();
+        setCode(liveCode);
+        setShowOutput(false);
       } catch (err) {
         console.error("Blockly code generation error:", err);
       }
-    });
+    };
+
+    // ✅ Add listener only once
+    workspace.addChangeListener(updateCode);
 
     return () => {
-      if (workspaceRef.current) {
-        workspaceRef.current.dispose();
-        workspaceRef.current = null;
-      }
+      // ✅ Remove listener + dispose workspace
+      workspace.removeChangeListener(updateCode);
+      workspace.dispose();
+      workspaceRef.current = null;
     };
-  }, [ onWorkspaceReady ]);
-
-  // // --- Safe toolbox update helper (call this when you want to change categories) ---
-  // const changeCategory = (newToolboxXml) => {
-  //   if (workspaceRef.current) {
-  //     workspaceRef.current.updateToolbox(newToolboxXml);
-  //   }
-  // };
+  }, [onWorkspaceReady]);
 
   // Generate Python code
   const generatePython = () => {
     if (workspaceRef.current) {
-      try{
-      pythonGenerator.init(workspaceRef.current);    // 🔹 Initialize
-      const generatedCode = pythonGenerator.workspaceToCode(workspaceRef.current);
+      try {
+        pythonGenerator.init(workspaceRef.current);    // 🔹 Initialize
+        // Custom code generation: skip 'varinput' blocks
+      let code = '';
+      const blocks = workspaceRef.current.getTopBlocks(true);
+      for (let i = 0; i < blocks.length; i++) {
+        const block = blocks[i];
+        if (block.type !== 'varinput') {
+          code += pythonGenerator.blockToCode(block);
+        }
+      }
+
       pythonGenerator.finish(); 
-      setCode(generatedCode);
+      setCode(code);
       setShowOutput(false);
-        } catch (err) {
+    } catch (err) {
       console.error("Python generation failed:", err);
     }
-    }
-  };
+  }
+};
 
   // Run Python code using Skulpt
   const runCode = () => {
     if (!code) return;
 
-     setOutput("");
+    setOutput("");
     setShowOutput(true);
 
     function outf(text) {
       setOutput((prev) => prev + text + "\n");
     }
-
 
     window.Sk.configure({
       output: outf,
@@ -125,41 +131,48 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
         return window.Sk.builtinFiles["files"][x];
       },
     });
-try {
-  window.Sk.misceval
-    .asyncToPromise(() =>
-      window.Sk.importMainWithBody("<stdin>", false, code, true)
-    )
-    .then(() => {
-      console.log("Execution finished");
-    })
-    .catch((err) => {
-      setOutput(err.toString());
+
+    try {
+      window.Sk.misceval
+        .asyncToPromise(() =>
+          window.Sk.importMainWithBody("<stdin>", false, code, true)
+        )
+        .then(() => {
+           // Remove the first line from output
+    setOutput((prev) => {
+      const lines = prev.split('\n');
+      return lines.slice(1).join('\n');
     });
-} catch (err) {
-  setOutput(err.toString());
-}
+          console.log("Execution finished");
+        })
+        .catch((err) => {
+          setOutput(err.toString());
+        });
+    } catch (err) {
+      setOutput(err.toString());
+    }
   };
 
   return (
     <div className="blockly-editor-container">
       {/* Blockly Workspace */}
-      <div ref={blocklyDiv} className="blocklyDiv"/>
+      <div ref={blocklyDiv} className="blocklyDiv" />
 
       {/* Code + Output Panel */}
       <div className="code-panel">
-
         {/* Action Buttons */}
         <div style={{ marginTop: "0px", display: "flex", gap: "20px" }}>
-          <button onClick={generatePython} >Generate Code</button>
-          <button onClick={runCode}>Run code </button>
+          <button onClick={generatePython}>Generate Code</button>
+          <button onClick={runCode}>Run code</button>
         </div>
 
         {/* Alternate Display */}
         {!showOutput ? (
-          <pre > <CodeDisplay code={code} /> </pre>
+          <pre>
+            <CodeDisplay code={code} />
+          </pre>
         ) : (
-          <pre >{output}</pre>
+          <pre>{output}</pre>
         )}
       </div>
     </div>

@@ -11,11 +11,11 @@ Blockly.Blocks['def_func'] = {
         .appendField(new Blockly.FieldTextInput("func"), "FUNC_NAME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput(""), "PARAMS")
-        .appendField(")");
+        .appendField("):");
     this.appendStatementInput("BODY")
-        .setCheck(null);
-    this.setPreviousStatement(false, null);
-    this.setNextStatement(false, null);
+        .setCheck("statement");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
     this.setColour("#FF4500");
     this.setTooltip("Define a function");
     this.setHelpUrl("");
@@ -26,7 +26,11 @@ pythonGenerator.forBlock['def_func'] = function(block) {
   var funcName = block.getFieldValue('FUNC_NAME');
   var params = block.getFieldValue('PARAMS');
   var statements = pythonGenerator.statementToCode(block, 'BODY');
-  var code = `def ${funcName}(${params}):\n${statements}`;
+  if (!statements.trim()) {
+    statements = "    pass\n"; // ✅ avoid empty body error
+  }
+    const indented = statements.split("\n").map(line => line ? "    " + line : "").join("\n");
+  var code = `def ${funcName}(${params}):\n${indented}\n`;
   return code;
 };
 
@@ -84,9 +88,7 @@ Blockly.Blocks['return'] = {
   init: function() {
     this.appendValueInput("VALUE")
         .setCheck(null)
-        .appendField("return(");
-    this.appendDummyInput()
-        .appendField(")");
+        .appendField("return");
     this.setPreviousStatement(true, null);
     this.setColour("#FF4500");
     this.setTooltip("Return a value");
@@ -203,7 +205,7 @@ Blockly.Blocks['fu3'] = {
 
 pythonGenerator.forBlock['fu3'] = function(block) {
   const value_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_NONE) || "";
-  const code = `return(${value_name})\n`;
+  const code = `return${value_name})\n`;
   return code;
 };
 
@@ -309,4 +311,25 @@ pythonGenerator.forBlock['global'] = function(block) {
   const value_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_NONE) || "x";
   const code = `global ${value_name}\n`;
   return code;
+};
+
+// ---------------- Simple func Block (with return support) ----------------
+Blockly.Blocks['func'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("def")
+        .appendField(new Blockly.FieldTextInput("func"), "FUNC_NAME")
+        .appendField("()");
+    this.appendStatementInput("BODY")
+        .setCheck(null);
+    this.setColour("#FF4500");
+    this.setTooltip("Simple function with return support");
+    this.setHelpUrl("");
+  }
+};
+
+pythonGenerator.forBlock['func'] = function(block) {
+  const funcName = block.getFieldValue('FUNC_NAME');
+  const body = pythonGenerator.statementToCode(block, 'BODY');
+  return `def ${funcName}():\n${body}`;
 };

@@ -42,7 +42,7 @@ Blockly.Blocks['import_from'] = {
 pythonGenerator.forBlock['import_from'] = function (block) {
     var value_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_FUNCTION_CALL);
     var value_name1 = pythonGenerator.valueToCode(block, 'NAME1', pythonGenerator.ORDER_FUNCTION_CALL);
-    return `\nfrom ${value_name} import ${value_name1}`;
+    return `from ${value_name} import ${value_name1}\n`;
 };
 
 
@@ -63,7 +63,7 @@ Blockly.Blocks['import_as'] = {
 pythonGenerator.forBlock['import_as'] = function (block) {
     var value_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_FUNCTION_CALL);
     var value_name1 = pythonGenerator.valueToCode(block, 'NAME1', pythonGenerator.ORDER_FUNCTION_CALL);
-    return `\nimport ${value_name} as ${value_name1}`;
+    return `import ${value_name} as ${value_name1}\n`;
 };
 
 
@@ -81,7 +81,7 @@ Blockly.Blocks['import'] = {
 
 pythonGenerator.forBlock['import'] = function(block) {
   var value_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_FUNCTION_CALL);
-  return `\nimport ${value_name}`;
+  return `import ${value_name}\n`;
 };
 
 
@@ -255,7 +255,7 @@ Blockly.Blocks['module_call'] = {
 pythonGenerator.forBlock['module_call'] = function(block) {
   var text_name = block.getFieldValue('NAME');
   var value_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_FUNCTION_CALL);
-  return `\n${text_name}.${value_name}`;
+  return `${text_name}.${value_name}\n`;
 };
 
 
