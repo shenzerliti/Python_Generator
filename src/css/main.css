@@ -130,7 +130,7 @@
 }
 /* Adds space between the categories, rounds the corners and adds space around the label. */
 .blocklyToolboxCategory {
-  padding: 3px;
+  padding: 1.5px;
   margin-bottom: 0.5em;
   border-radius: 4px;
 }
