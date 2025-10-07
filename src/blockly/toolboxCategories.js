@@ -39,10 +39,10 @@ const toolboxCategories = `
     </category>
 
     <!-- Variables -->
-    <category name=" Variables" colour="#f78f6c">
+    <category name=" Variables" colour="#d39c8b">
       <block type="variable"></block>
       <block type="varinput"></block>
-      <block type="m6"></block>
+      <block type="variable_index_stmt"></block>
       <block type="type"></block>
       <block type="conv"></block>
     </category>

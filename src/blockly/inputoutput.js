@@ -2,69 +2,70 @@ import "blockly/blocks";
 import { pythonGenerator } from "blockly/python"; // Correct for Blockly 8.x custom generators
 import * as Blockly from "blockly/core";
 
-// varnum block
+// varnum block: User enters anything directly in the space
 Blockly.Blocks['varnum'] = {
     init: function() {
-        this.appendValueInput("NAME")
-            .setCheck(null);
         this.appendDummyInput()
+            .appendField(new Blockly.FieldTextInput("   "), "VALUE")
             .appendField(" # to insert a no. or string");
         this.setOutput(true, null);
         this.setColour('#D15C08');
-        this.setTooltip("");
+        this.setTooltip("Enter a number or string in the blank space.");
         this.setHelpUrl("");
     }
 };
 
 pythonGenerator.forBlock['varnum'] = function(block) {
-    var text_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_FUNCTION_CALL) || '""';
-    var code = text_name;
-    return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+    var value = block.getFieldValue('VALUE');
+    // If value looks like a number, output as is; otherwise, quote it as a string
+    if (!isNaN(value) && value.trim() !== "") {
+        return [value, pythonGenerator.ORDER_ATOMIC];
+    } else {
+        return [`"${value}"`, pythonGenerator.ORDER_ATOMIC];
+    }
 };
 
-// inputno block
+// inputno block: User enters prompt text directly in the space
 Blockly.Blocks['inputno'] = {
     init: function() {
         this.appendDummyInput()
             .appendField(new Blockly.FieldDropdown([["int","int"], ["float","float"], ["complex","complex"]]), "TYPE")
             .appendField("input (");
-        this.appendValueInput("NAME")
-            .setCheck(null);
         this.appendDummyInput()
+            .appendField(new Blockly.FieldTextInput("   "), "PROMPT")
             .appendField(") # to input a number");
         this.setOutput(true, null);
         this.setColour('#D15C08');
-        this.setTooltip("");
+        this.setTooltip("Enter prompt in the blank space.");
         this.setHelpUrl("");
     }
 };
 
 pythonGenerator.forBlock['inputno'] = function(block) {
     var dropdown_type = block.getFieldValue('TYPE') || "int";
-    var text_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_FUNCTION_CALL) || '""';
-    var code = dropdown_type + '(input(' + text_name + '))';
+    var prompt = block.getFieldValue('PROMPT') || '';
+    var code = `${dropdown_type}(input(${JSON.stringify(prompt)}))`;
     return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
-// inputstr block
+// inputstr block: User enters prompt text directly in the space
 Blockly.Blocks['inputstr'] = {
     init: function() {
         this.appendDummyInput()
             .appendField("input (");
-        this.appendValueInput("NAME")
-            .setCheck(null);
         this.appendDummyInput()
+            .appendField(new Blockly.FieldTextInput("   "), "PROMPT")
             .appendField(") # to input a string value");
         this.setOutput(true, null);
         this.setColour('#D15C08');
-        this.setTooltip("");
+        this.setTooltip("Enter prompt in the blank space.");
         this.setHelpUrl("");
     }
 };
 
 pythonGenerator.forBlock['inputstr'] = function(block) {
-    var text_name =  pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_FUNCTION_CALL) || '""';
-    var code = 'input(' + text_name + ')';
+    var prompt = block.getFieldValue('PROMPT') || '';
+    var code = `input(${JSON.stringify(prompt)})`;
     return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 

@@ -11,7 +11,7 @@ Blockly.Blocks['variables_set'] = {
         .appendField(new Blockly.FieldVariable("item"), "VAR")
         .appendField("to");
     this.setOutput(true, null);
-    this.setColour('#f78f6c');
+    this.setColour('#d39c8b');
   }
 };
 
@@ -30,7 +30,7 @@ Blockly.Blocks['variable'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldVariable("variable name"), "NAME");
     this.setOutput(true, null);
-    this.setColour('#f78f6c');
+    this.setColour('#d39c8b');
   }
 };
 
@@ -50,7 +50,7 @@ Blockly.Blocks['varinput'] = {
         .appendField("=");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#f78f6c');
+    this.setColour('#d39c8b');
   }
 };
 
@@ -63,31 +63,6 @@ pythonGenerator.forBlock['varinput'] = function(block) {
   return code;
 };
 
-// Access element by index
-Blockly.Blocks['m6'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldVariable("variable"), "NAME")
-        .appendField("[");
-    this.appendValueInput("NAME1")
-        .setCheck(null);
-    this.appendDummyInput()
-        .appendField("]");
-    this.setInputsInline(true);
-    this.setOutput(true, null);
-    this.setColour('#f78f6c');
-  }
-};
-
-pythonGenerator.forBlock['m6'] = function(block) {
-  const variable_name = pythonGenerator.nameDB_.getName(   // ✅ FIX
-      block.getFieldValue('NAME'),
-      Blockly.VARIABLE_CATEGORY_NAME);
-  const index = pythonGenerator.valueToCode(block, 'NAME1', pythonGenerator.ORDER_ATOMIC) || '0';
-  const code = variable_name + '[' + index + ']';
-  return [code, pythonGenerator.ORDER_ATOMIC];
-};
-
 // Type of a variable
 Blockly.Blocks['type'] = {
   init: function() {
@@ -95,7 +70,7 @@ Blockly.Blocks['type'] = {
         .appendField("type of")
         .appendField(new Blockly.FieldVariable("variable"), "NAME");
     this.setOutput(true, null);
-    this.setColour('#f78f6c');
+    this.setColour('#d39c8b');
   }
 };
 
@@ -118,7 +93,7 @@ Blockly.Blocks['conv'] = {
     this.appendDummyInput()
         .appendField(") #datatype conversion");
     this.setOutput(true, null);
-    this.setColour('#f78f6c');
+    this.setColour('#d39c8b');
   }
 };
 
@@ -136,7 +111,7 @@ Blockly.Blocks['varstr'] = {
         .appendField(new Blockly.FieldTextInput(""), "NAME")
         .appendField(" # to insert a string");
     this.setOutput(true, null);
-    this.setColour('#f78f6c');
+    this.setColour('#d39c8b');
   }
 };
 
@@ -144,4 +119,27 @@ pythonGenerator.forBlock['varstr'] = function(block) {
   const text = block.getFieldValue('NAME');
   const code = JSON.stringify(text); // ensures proper quotes
   return [code, pythonGenerator.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['variable_index_stmt'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldVariable("variable"), "NAME")
+        .appendField("[")
+        .appendField(new Blockly.FieldTextInput(""), "INDEX")
+        .appendField("]");
+    this.setPreviousStatement(true, null); // upside connection
+    this.setNextStatement(true, null);
+    this.setColour('#d39c8b');
+    this.setTooltip("Access element by index for a variable.");
+    this.setHelpUrl("");
+  }
+};
+
+pythonGenerator.forBlock['variable_index_stmt'] = function(block) {
+  const variable_name = pythonGenerator.nameDB_.getName(
+      block.getFieldValue('NAME'),
+      Blockly.VARIABLE_CATEGORY_NAME);
+  const index = block.getFieldValue('INDEX');
+  return `${variable_name}[${index}]\n`;
 };
