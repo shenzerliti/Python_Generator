@@ -1,7 +1,6 @@
 import "blockly/blocks";
-import { pythonGenerator } from "blockly/python";
+import { pythonGenerator } from "blockly/python"; // Use correct import for Blockly 8.x+
 import * as Blockly from "blockly/core";
-
 
 // ---------------- INLINE TEXT ----------------
 const OUTPUT_SHAPE_ROUND = 0;

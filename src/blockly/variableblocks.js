@@ -11,7 +11,7 @@ Blockly.Blocks['variables_set'] = {
         .appendField(new Blockly.FieldVariable("item"), "VAR")
         .appendField("to");
     this.setOutput(true, null);
-    this.setColour('#d39c8b');
+    this.setColour('#f78f6c');
   }
 };
 
@@ -30,7 +30,7 @@ Blockly.Blocks['variable'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldVariable("variable name"), "NAME");
     this.setOutput(true, null);
-    this.setColour('#d39c8b');
+    this.setColour('#f78f6c');
   }
 };
 
@@ -50,7 +50,7 @@ Blockly.Blocks['varinput'] = {
         .appendField("=");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#d39c8b');
+    this.setColour('#f78f6c');
   }
 };
 
@@ -75,7 +75,7 @@ Blockly.Blocks['m6'] = {
         .appendField("]");
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour('#d39c8b');
+    this.setColour('#f78f6c');
   }
 };
 
@@ -95,7 +95,7 @@ Blockly.Blocks['type'] = {
         .appendField("type of")
         .appendField(new Blockly.FieldVariable("variable"), "NAME");
     this.setOutput(true, null);
-    this.setColour('#d39c8b');
+    this.setColour('#f78f6c');
   }
 };
 
@@ -118,7 +118,7 @@ Blockly.Blocks['conv'] = {
     this.appendDummyInput()
         .appendField(") #datatype conversion");
     this.setOutput(true, null);
-    this.setColour('#d39c8b');
+    this.setColour('#f78f6c');
   }
 };
 
@@ -136,7 +136,7 @@ Blockly.Blocks['varstr'] = {
         .appendField(new Blockly.FieldTextInput(""), "NAME")
         .appendField(" # to insert a string");
     this.setOutput(true, null);
-    this.setColour('#d39c8b');
+    this.setColour('#f78f6c');
   }
 };
 

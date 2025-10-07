@@ -1,112 +1,136 @@
-/* Blockly workspace */
+/* ======================== */
+/* Blockly Workspace Layout */
+/* ======================== */
 .blocklyDiv {
-  height: calc(100vh - 70px); /* match navbar height */
+  height: calc(100vh - 70px);
   width: 60%;
-  border: 1px solid #f7f7f7;
-  border-radius: 6px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  position: relative;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 3px 16px rgba(30, 64, 175, 0.08);
+  position: left;
   background-position: center;
   background-size: cover;
   cursor: pointer;
-  /* background-image: url("/public/images/bg1.png"); */
+  background: #fafdff;
 }
 
 /* Container layout */
 .blockly-editor-container {
   display: flex;
   width: 100%;
-  height: calc(100vh - 70px); /* match navbar height */
-  /* overflow: hidden; */
+  height: calc(100vh - 70px);
+  overflow: hidden;
 }
 
-/* Left side toolbox panel (auto handled by Blockly) */
-.blocklyToolboxDiv {
-  background: #ffffff !important;
-  border-right: 1px solid #ccc;
-}
-
-/* Right panel: Code & Output */
+/* =============== */
+/* Right Panel     */
+/* =============== */
 .code-panel {
   width: 40%;
   display: flex;
   flex-direction: column;
   background: #f8f8f8;
-  border-left: 1px solid #ddd;
-  padding: 20px;
-  height: calc(100vh - 70px); /* match navbar height */
+  border-left: 1px solid #e2e8f0;
+  padding: 24px;
+  height: calc(100vh - 70px);
   z-index: 2;
 }
 
 /* Buttons */
 .code-panel button {
-  padding: 10px 18px;
-  font-size: 14px;
+  padding: 12px 22px;
+  font-size: 15px;
   font-weight: bold;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   border: none;
+  margin-bottom: 0;
+  transition: background 0.18s, color 0.18s;
+  box-shadow: 0 2px 8px rgba(30,144,255,0.05);
 }
 
 .code-panel button:first-child {
-  background: #1e90ff;
+  background: #2563eb;
   color: #fff;
 }
 
 .code-panel button:last-child {
-  background: #ffa500;
+  background: #ff8800;
   color: #fff;
 }
 
 .code-panel button:hover {
-  opacity: 0.9;
+  opacity: 0.95;
+  box-shadow: 0 4px 16px rgba(30,144,255,0.09);
 }
 
 /* Code area */
 .code-panel pre {
   flex: 1;
   margin-top: 15px;
-  background: #000;
-  color: #0f0;
-  padding: 12px;
-  border-radius: 4px;
+  background: #111827;
+  color: #b1ffb0;
+  padding: 14px 16px;
+  border-radius: 6px;
   overflow: auto;
-  font-family: monospace;
-  font-size: 14px;
+  font-family: 'Fira Mono', 'Consolas', monospace;
+  font-size: 15px;
+  scroll-behavior: smooth;
+  box-shadow: 0 1px 6px rgba(30,144,255,0.04);
 }
 
-
-/* 📱 Responsive Design for Mobile */
+/* ================ */
+/* Responsive (Mobile) */
+/* ================ */
 @media (max-width: 767px) {
   .blockly-editor-container {
-    flex-direction: column; /* stack vertically */
-    height: auto; /* allow natural height */
+    flex-direction: column;
+    height: auto;
     overflow: visible;
   }
 
   .blocklyDiv {
-    width: 100% !important; /* full width */
-    height: 60vh; /* enough space for toolbox */
+    width: 100% !important;
+    height: 60vh;
+    border-radius: 6px;
   }
 
   .code-panel {
-    width: 100% !important; /* full width below Blockly */
+    width: 100% !important;
     height: auto;
-    margin-top: 10px;
-    padding: 15px;
+    margin-top: 14px;
+    padding: 13px;
   }
 
   .code-panel pre {
     font-size: 13px;
-    max-height: 40vh; /* enough space for scrolling */
-    overflow-y: auto; /* enable vertical scroll */
-    overflow-x: auto; /* allow horizontal scroll for long lines */
+    max-height: 40vh;
+    overflow-y: auto;
+    overflow-x: auto;
   }
 
   .code-panel button {
-    width: 48%; /* two buttons side by side */
+    width: 48%;
     margin: 5px 1%;
     font-size: 13px;
-    padding: 8px;
+    padding: 9px 0;
   }
+ }
+
+/* Makes our label white. */
+.blocklyToolboxCategoryLabel {
+  color: rgb(21, 18, 18);
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-weight:600;
+}
+/* Adds padding around the group of categories and separators. */
+.blocklyToolboxContents {
+  padding: 1px;
+  width: 1px;
+}
+/* Adds space between the categories, rounds the corners and adds space around the label. */
+.blocklyToolboxCategory {
+  padding: 3px;
+  margin-bottom: 0.5em;
+  border-radius: 4px;
 }

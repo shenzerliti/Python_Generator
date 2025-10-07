@@ -1,273 +1,201 @@
-// src/toolboxCategories.js
+
 const toolboxCategories = `
 <xml id="toolbox" style="display: none">
 
-  <category id="c1" name="PYTHON" colour="#ffe600">
+  <!-- Python Core -->
+  <category id="c1" name="Python" colour="#FFE600">
 
-    <!-- Import Modules -->
-    <category name="Import" colour="#c93664">
-      <block type="import_from">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-        <value name="NAME1"><shadow type="inlinetxt"></shadow></value>
-      </block>
-      <block type="import_as">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-        <value name="NAME1"><shadow type="inlinetxt"></shadow></value>
-      </block>
-      <block type="import">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-      </block>
-      <block type="wait"></block>
-      <block type="sleep"></block>
+    <!-- Imports -->
+    <category name=" Modules" colour="#C93664">
+      <block type="import"></block>
+      <block type="import_as"></block>
+      <block type="import_from"></block>
+      <block type="module_call"></block>
+      <block type="module_call2"></block>
       <block type="time"></block>
+      <block type="sleep"></block>
+      <block type="wait"></block>
+      <block type="pause"></block>
       <block type="random1"></block>
       <block type="random2"></block>
       <block type="choice"></block>
       <block type="signal"></block>
-      <block type="pause"></block>
       <block type="calender"></block>
       <block type="month"></block>
-      <block type="dir">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-      </block>
+      <block type="dir"></block>
       <block type="re"></block>
-      <block type="module_call">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-      </block>
-      <block type="module_call2">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-      </block>
-    </category>
-
-    <!-- Input & Output -->
-    <category name="Input & Output" colour="#D15C08">
-
-      <block type="varnum">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-      </block>
-
-      <block type="inputno">
-        <value name="NAME">
-          <shadow type="text"><field name="text">"Enter your number"</field></shadow>
-        </value>
-      </block>
-
-      <block type="inputstr">
-        <value name="NAME">
-          <shadow type="inlinetxt"><field name="text">"Enter your text"</field></shadow>
-        </value>
-      </block>
-
-      <block type="printnew">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-      </block>
-
-      <block type="extra">
-        <value name="NAME1"><shadow type="inlinetxt"><field name="text"></field></shadow></value>
-        <value name="NAME"><shadow type="inlinetxt"><field name="text"></field></shadow></value>
-      </block>
-
-      <block type="end"></block>
+</category>
+    <category name=" Input Output" colour="#D15C08">
+      <block type="varnum"></block>
+      <block type="inputno"></block>
+      <block type="inputstr"></block>
       <block type="print_default"></block>
       <block type="print_input"></block>
       <block type="print_concat_value"></block>
       <block type="print_concat_string"></block>
-
+      <block type="printnew"></block>
+      <block type="extra"></block>
+      <block type="end"></block>
     </category>
 
     <!-- Variables -->
-    <category name="Variable" custom="VARIABLE" colour="%{BKY_VARIABLES_HUE}"></category>
-
-    <category name="Variables" colour="#d39c8b">
+    <category name=" Variables" colour="#f78f6c">
       <block type="variable"></block>
-      <block type="varinput">
-        <value name="NAME">
-          <shadow type="inlinetxt"><field name="text">1</field></shadow>
-        </value>
-      </block>
-      <block type="m6">
-        <value name="NAME1">
-          <shadow type="inlinetxt"><field name="text">0</field></shadow>
-        </value>
-      </block>
+      <block type="varinput"></block>
+      <block type="m6"></block>
       <block type="type"></block>
-      <block type="conv">
-        <value name="NAME1">
-          <shadow type="inlinetxt"><field name="text">1</field></shadow>
-        </value>
-      </block>
+      <block type="conv"></block>
     </category>
 
-    <!-- Math -->
-    <category name="Math" colour="%{BKY_MATH_HUE}">
+    <!-- Core -->
+    <category name=" Math" colour="%{BKY_MATH_HUE}">
       <block type="math_number"></block>
       <block type="math_arithmetic"></block>
       <block type="math_modulo"></block>
-      <block type="math_single">
-        <field name="OP">ROOT</field>
-      </block>
+      <block type="math_single"></block>
+      <block type="math_trig"></block>
+      <block type="math_constant"></block>
+      <block type="math_round"></block>
+      <block type="math_on_list"></block>
+      <block type="math_change"></block>
     </category>
 
-    <!-- Text -->
-    <category name="Text" colour="%{BKY_TEXTS_HUE}">
+    <category name=" Text" colour="%{BKY_TEXTS_HUE}">
       <block type="text"></block>
-      <block type="text_print"></block>
       <block type="text_join"></block>
       <block type="text_prompt_input"></block>
     </category>
 
-    <!-- Operators -->
     <category name="Operators" colour="#32CD32">
       <block type="math_assignment"></block>
-      <block type="mathoperator">
-        <field name="OPERATOR">ADD</field>
-        <value name="NAME1"><shadow type="inlinetxt"><field name="text">1</field></shadow></value>
-        <value name="NAME"><shadow type="inlinetxt"><field name="text">1</field></shadow></value>
-      </block>
-
-      <block type="stringoperator">
-        <field name="OPERATOR">STRING</field>
-        <value name="NAME1"><shadow type="inlinetxt"><field name="text">abc</field></shadow></value>
-        <value name="NAME"><shadow type="inlinetxt"><field name="text">abc</field></shadow></value>
-      </block>
-
-      <block type="andextra">
-        <field name="OPERATOR">ADD</field>
-        <value name="NAME1"><shadow type="inlinetxt"><field name="text">1</field></shadow></value>
-        <value name="NAME"><shadow type="inlinetxt"><field name="text">1</field></shadow></value>
-      </block>
-
-      <block type="compextra">
-        <field name="OPERATOR">ADD</field>
-        <value name="NAME1"><shadow type="inlinetxt"><field name="text">1</field></shadow></value>
-        <value name="NAME"><shadow type="inlinetxt"><field name="text">1</field></shadow></value>
-      </block>
-
-      <block type="inblock">
-        <field name="OPERATOR">ADD</field>
-        <value name="NAME1"><shadow type="inlinetxt"><field name="text">1</field></shadow></value>
-        <value name="NAME"><shadow type="inlinetxt"><field name="text">1</field></shadow></value>
-      </block>
-
+      <block type="mathoperator"></block>
+      <block type="stringoperator"></block>
+      <block type="andextra"></block>
+      <block type="compextra"></block>
+      <block type="inblock"></block>
       <block type="splicing"></block>
-
-      <block type="increment">
-        <value name="NAME"><shadow type="inlinetxt"><field name="text">1</field></shadow></value>
-        <value name="xyz"><shadow type="inlinetxt"><field name="text">1</field></shadow></value>
-      </block>
+      <block type="increment"></block>
     </category>
 
-    <!-- String -->
-    <category name="String" colour="#d39c8b">
-      <block type="s1">
-        <value name="NAME2"><shadow type="inlinetxt"><field name="text">0</field></shadow></value>
-      </block>
+    <category name="Strings" colour="#D39C8B">
+      <block type="s1"></block>
       <block type="strfn"></block>
-      <block type="replace">
-        <value name="NAME"><shadow type="inlinetxt"><field name="text">abc</field></shadow></value>
-        <value name="NAME1"><shadow type="inlinetxt"><field name="text">abc</field></shadow></value>
-      </block>
-      <block type="split">
-        <value name="NAME"><shadow type="inlinetxt"><field name="text">abc</field></shadow></value>
-      </block>
+      <block type="replace"></block>
+      <block type="split"></block>
     </category>
 
-    <!-- Loops -->
     <category name="Loops" colour="#0000CD">
       <block type="infinitewhile"></block>
-      <block type="for_range">
-        <value name="RANGE"><shadow type="inlinetxt"><field name="NUM">[1,2,3]</field></shadow></value>
-      </block>
+      <block type="for_range"></block>
       <block type="while_do"></block>
       <block type="while_loop"></block>
       <block type="controls_repeat_ext"></block>
       <block type="controls_whileUntil"></block>
     </category>
 
-    <!-- Logic -->
     <category name="Logic" colour="#0CC0FF">
       <block type="controls_if"></block>
-      <block type="if"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
-      <block type="elif3"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
+      <block type="if"></block>
+      <block type="elif3"></block>
       <block type="else"></block>
       <block type="logic_compare"></block>
       <block type="logic_operation"></block>
       <block type="logic_boolean"></block>
       <block type="logic_negate"></block>
     </category>
-
   </category>
 
-  <!-- Datatypes -->
-  <category name="Datatypes" colour="#C0FF0C">
-
-    <!-- List -->
-    <category name="List" colour="#DB7093">
-      <block type="lists_create_with"><mutation items="3"></mutation></block>
+  <!-- Datatypes (grouped neatly) -->
+  <category name=" Data Structures" colour="#C0FF0C">
+    <category name="📋 List" colour="#DB7093">
+      <block type="lists_create_with"></block>
       <block type="lists_getIndex"></block>
       <block type="lists_length"></block>
-      <block type="list1"><value name="NAME1"><shadow type="inlinetxt"><field name="text">1,2,3</field></shadow></value></block>
-      <block type="listin"><value name="NAME"><shadow type="inlinetxt"><field name="text">1,2,3</field></shadow></value></block>
-      <block type="list3"><value name="NAME"><shadow type="inlinetxt"><field name="text">default</field></shadow></value></block>
-      <block type="list_in_list">
-        <value name="NAME"><shadow type="inlinetxt"><field name="text">default</field></shadow></value>
-        <value name="NAME1"><shadow type="inlinetxt"></shadow></value>
-      </block>
-      <block type="list"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
-      <block type="insert">
-        <value name="NAME1"><shadow type="inlinetxt"><field name="text">new</field></shadow></value>
-        <value name="NAME2"><shadow type="math_number"><field name="text">0</field></shadow></value>
-      </block>
-      <block type="pop"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
-      <block type="replaced">
-        <value name="NAME1"><shadow type="math_number"><field name="text">0</field></shadow></value>
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-      </block>
-      <block type="sort"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
-      <block type="multiple">
-        <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-        <value name="xyz"><shadow type="inlinetxt"></shadow></value>
-      </block>
-      <block type="sum"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
-      <block type="del"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
+      <block type="list1"></block>
+      <block type="listin"></block>
+      <block type="list3"></block>
+      <block type="list_in_list"></block>
+      <block type="list"></block>
+      <block type="insert"></block>
+      <block type="pop"></block>
+      <block type="replaced"></block>
+      <block type="sort"></block>
+      <block type="multiple"></block>
+      <block type="sum"></block>
+      <block type="del"></block>
     </category>
 
-    <!-- Tuple -->
-    <category name="Tuple" colour="#801e33">
-      <block type="t1"><value name="NAME1"><shadow type="inlinetxt"><field name="text">one,two</field></shadow></value></block>
-      <block type="tuple"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
-    </category>
+    <category name="Turtle" colour="#801E33">
+  <block type="turtle_create"></block>
+  <block type="screen_create"></block>
+  <block type="screen_setup">
+    <value name="WIDTH"><shadow type="math_number"><field name="NUM">1920</field></shadow></value>
+    <value name="HEIGHT"><shadow type="math_number"><field name="NUM">1080</field></shadow></value>
+  </block>
+  <block type="screen_bgcolor">
+    <value name="R"><shadow type="math_number"><field name="NUM">255</field></shadow></value>
+    <value name="G"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+  </block>
+  <block type="turtle_forward">
+    <value name="DIST"><shadow type="math_number"><field name="NUM">90</field></shadow></value>
+  </block>
+  <block type="turtle_circle">
+    <value name="RADIUS"><shadow type="math_number"><field name="NUM">50</field></shadow></value>
+  </block>
+  <block type="turtle_speed">
+    <value name="SPEED"><shadow type="math_number"><field name="NUM">10</field></shadow></value>
+  </block>
+  <block type="turtle_goto">
+    <value name="X"><shadow type="math_number"><field name="NUM">5</field></shadow></value>
+    <value name="Y"><shadow type="math_number"><field name="NUM">5</field></shadow></value>
+  </block>
+  <block type="turtle_shape"></block>
+  <block type="turtle_width">
+    <value name="WIDTH"><shadow type="math_number"><field name="NUM">20</field></shadow></value>
+  </block>
+  <block type="turtle_color">
+    <value name="R"><shadow type="math_number"><field name="NUM">255</field></shadow></value>
+    <value name="G"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+  </block>
+  <block type="turtle_pencolor">
+    <value name="R"><shadow type="math_number"><field name="NUM">255</field></shadow></value>
+    <value name="G"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+  </block>
+  <block type="turtle_fillcolor">
+    <value name="R"><shadow type="math_number"><field name="NUM">255</field></shadow></value>
+    <value name="G"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+  </block>
+  <block type="turtle_begin_fill"></block>
+  <block type="turtle_penupdown">
+    <field name="STATE">up</field>
+  </block>
+</category>
 
-    <!-- Set -->
-    <category name="Set" colour="#0c99a7">
-      <block type="set"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
-      <block type="setremove"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
-      <block type="set1"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
-      <block type="setadd"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
+    <category name=" Set" colour="#0C99A7">
+      <block type="set"></block>
+      <block type="setremove"></block>
+      <block type="set1"></block>
+      <block type="setadd"></block>
       <block type="setmethods"></block>
     </category>
 
-    <!-- Dictionary -->
-    <category name="Dictionary" colour="#0ca76a">
-      <block type="d1"><value name="NAME1"><shadow type="inlinetxt"><field name="text">key1:value1,key2:value2</field></shadow></value></block>
+    <category name=" Dict" colour="#0CA76A">
+      <block type="d1"></block>
       <block type="emptyd"></block>
-      <block type="d2"><value name="NAME1"><shadow type="inlinetxt"></shadow></value></block>
-      <block type="dictinsert">
-        <value name="NAME1"><shadow type="inlinetxt"><field name="text">key</field></shadow></value>
-        <value name="NAME2"><shadow type="inlinetxt"></shadow></value>
-      </block>
-      <block type="dinsert"><value name="NAME2"><shadow type="inlinetxt"></shadow></value></block>
-      <block type="dget"><value name="NAME1"><shadow type="inlinetxt"></shadow></value></block>
-      <block type="dadd">
-        <value name="NAME1"><shadow type="inlinetxt"><field name="text">key</field></shadow></value>
-        <value name="NAME2"><shadow type="inlinetxt"></shadow></value>
-      </block>
+      <block type="d2"></block>
+      <block type="dictinsert"></block>
+      <block type="dinsert"></block>
+      <block type="dget"></block>
+      <block type="dadd"></block>
     </category>
-
   </category>
 
   <!-- Functions -->
-  <category name="Functions" colour="#FF4500">
+  <category name=" Functions" colour='#ff3396'>
     <block type="def_func"></block>
     <block type="func_call_stmt"></block>
     <block type="func_call"></block>
@@ -281,95 +209,60 @@ const toolboxCategories = `
     <block type="fun"></block>
     <block type="global"></block>
     <block type="func"></block>
-  </category>
-
-  <!-- Exception handling -->
-  <category name="Exception handling" colour="#ff3396">
     <block type="e1"></block>
-    <block type="e2"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
+    <block type="e2"></block>
     <block type="e3"></block>
     <block type="e4"></block>
   </category>
 
-  <!-- File handling -->
-  <category name="File handling" colour="#99cc00">
-    <block type="f1"><value name="xyz"><shadow type="inlinetxt"><field name="text">file name</field></shadow></value></block>
+  <!-- Files -->
+  <category name=" Files" colour="#99CC00">
+    <block type="f1"></block>
     <block type="f2"></block>
-    <block type="readline"><value name="NAME"><shadow type="inlinetxt"><field name="text">file name</field></shadow></value></block>
-    <block type="f3"><value name="NAME2"><shadow type="inlinetxt"></shadow></value></block>
+    <block type="readline"></block>
+    <block type="f3"></block>
     <block type="f4"></block>
   </category>
 
-  <!-- Class -->
-  <category name="Class" colour="#FF0000">
-    <block type="c1"><value name="NAME1"><shadow type="inlinetxt"><field name="text">class name</field></shadow></value></block>
-    <block type="c2"><value name="NAME1"><shadow type="inlinetxt"><field name="text">name</field></shadow></value></block>
-    <block type="c7">
-      <value name="NAME1"><shadow type="inlinetxt"><field name="text">parent_class</field></shadow></value>
-      <value name="NAME2"><shadow type="inlinetxt"><field name="text">default</field></shadow></value>
-    </block>
-    <block type="c3"><value name="NAME"><shadow type="inlinetxt"><field name="text">name</field></shadow></value></block>
-    <block type="classvar"><value name="NAME"><shadow type="inlinetxt"></shadow></value></block>
-    <block type="c4"><value name="NAME"><shadow type="inlinetxt"><field name="text">default</field></shadow></value></block>
-    <block type="c5">
-      <value name="NAME1"><shadow type="inlinetxt"><field name="text">class_name</field></shadow></value>
-      <value name="NAME3"><shadow type="inlinetxt"></shadow></value>
-    </block>
+  <!-- OOP -->
+  <category name=" Classes" colour="#FF0000">
+    <block type="c1"></block>
+    <block type="c2"></block>
+    <block type="c7"></block>
+    <block type="c3"></block>
+    <block type="classvar"></block>
+    <block type="c4"></block>
+    <block type="c5"></block>
     <block type="c6"></block>
-    <block type="fc">
-      <value name="abc"><shadow type="inlinetxt"></shadow></value>
-      <value name="xyz"><shadow type="inlinetxt"></shadow></value>
-    </block>
-    <block type="fc1">
-      <value name="NAME"><shadow type="inlinetxt"></shadow></value>
-      <value name="NAME1"><shadow type="inlinetxt"></shadow></value>
-    </block>
+    <block type="fc"></block>
+    <block type="fc1"></block>
+    <block type="o1"></block>
+    <block type="o3"></block>
+    <block type="o4"></block>
+    <block type="o2"></block>
   </category>
 
-  <!-- Object -->
-  <category name="Object" colour="#FFA07A">
-    <block type="o1">
-      <value name="NAME"><shadow type="inlinetxt"><field name="text">class_name</field></shadow></value>
-      <value name="NAME1"><shadow type="inlinetxt"><field name="text">class_parameters</field></shadow></value>
-    </block>
-    <block type="o3">
-      <value name="NAME"><shadow type="inlinetxt"><field name="text">object_name</field></shadow></value>
-      <value name="NAME1"><shadow type="inlinetxt"><field name="text">attribute</field></shadow></value>
-    </block>
-    <block type="o4">
-      <value name="NAME"><shadow type="inlinetxt"><field name="text">class_name</field></shadow></value>
-    </block>
-    <block type="method">
-      <value name="NAME1"><shadow type="inlinetxt"><field name="text">method</field></shadow></value>
-      <value name="NAME2"><shadow type="inlinetxt"><field name="text"></field></shadow></value>
-    </block>
-    <block type="modify">
-      <value name="NAME"><shadow type="inlinetxt"><field name="text">default</field></shadow></value>
-      <value name="NAME2"><shadow type="inlinetxt"><field name="text">default</field></shadow></value>
-    </block>
-  </category>
 
-  <!-- Custom -->
-  <category name="Custom" colour="#17becf">
-    <block type="random_choice"></block>
-    <block type="time_sleep"></block>
-  </category>
-
-  <!-- More -->
-  <category name="More" colour="#b533ff">
-    <block type="m1"><value name="NAME"><shadow type="inlinetxt"><field name="text"></field></shadow></value></block>
-    <block type="m3"><value name="NAME"><shadow type="inlinetxt"><field name="text"></field></shadow></value></block>
-    <block type="m4"><value name="NAME"><shadow type="inlinetxt"><field name="text">1,3</field></shadow></value></block>
-    <block type="randchar"><value name="NAME"><shadow type="inlinetxt"><field name="text">ab</field></shadow></value></block>
+  <!-- Misc -->
+  <category name=" Utilities" colour="#B533FF">
+    <block type="m1"></block>
+    <block type="m2"></block>
+    <block type="m3"></block>
+    <block type="m4"></block>
+    <block type="randchar"></block>
     <block type="m5"></block>
-    <block type="count"><value name="NAME"><shadow type="inlinetxt"><field name="text"></field></shadow></value></block>
-    <block type="year"><value name="NAME"><shadow type="inlinetxt"><field name="text">year,month</field></shadow></value></block>
-    <block type="year1"><value name="NAME"><shadow type="inlinetxt"><field name="text">year</field></shadow></value></block>
+    <block type="count"></block>
     <block type="pass"></block>
-    <block type="join">
-      <value name="NAME"><shadow type="inlinetxt"><field name="text">.</field></shadow></value>
-      <value name="NAME1"><shadow type="inlinetxt"><field name="text"></field></shadow></value>
-    </block>
+    <block type="true"></block>
+    <block type="year"></block>
+    <block type="year1"></block>
+    <block type="join"></block>
+  </category>
+
+  <category name=" Random" colour="#20B2AA">
+    <block type="randint"></block>
+    <block type="randrange"></block>
+    <block type="uniform"></block>
   </category>
 
 </xml>

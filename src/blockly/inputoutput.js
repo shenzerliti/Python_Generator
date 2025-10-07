@@ -1,8 +1,8 @@
 import "blockly/blocks";
-import { pythonGenerator } from "blockly/python";
+import { pythonGenerator } from "blockly/python"; // Correct for Blockly 8.x custom generators
 import * as Blockly from "blockly/core";
 
-
+// varnum block
 Blockly.Blocks['varnum'] = {
     init: function() {
         this.appendValueInput("NAME")
@@ -22,7 +22,7 @@ pythonGenerator.forBlock['varnum'] = function(block) {
     return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
-
+// inputno block
 Blockly.Blocks['inputno'] = {
     init: function() {
         this.appendDummyInput()
@@ -40,13 +40,13 @@ Blockly.Blocks['inputno'] = {
 };
 
 pythonGenerator.forBlock['inputno'] = function(block) {
-    var dropdown_type = block.getFieldValue('TYPE') || "int";   // must match exactly
+    var dropdown_type = block.getFieldValue('TYPE') || "int";
     var text_name = pythonGenerator.valueToCode(block, 'NAME', pythonGenerator.ORDER_FUNCTION_CALL) || '""';
     var code = dropdown_type + '(input(' + text_name + '))';
     return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
-
+// inputstr block
 Blockly.Blocks['inputstr'] = {
     init: function() {
         this.appendDummyInput()
@@ -68,7 +68,7 @@ pythonGenerator.forBlock['inputstr'] = function(block) {
     return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
-
+// print block
 Blockly.Blocks['print'] = {
     init: function () {
         this.appendDummyInput()
@@ -88,7 +88,7 @@ pythonGenerator.forBlock['print'] = function (block) {
     return code;
 };
 
-
+// printnew block
 Blockly.Blocks['printnew'] = {
     init: function () {
         this.appendDummyInput()
@@ -110,7 +110,7 @@ pythonGenerator.forBlock['printnew'] = function (block) {
     return code;
 };
 
-
+// printextra block
 Blockly.Blocks['printextra'] = {
   init: function() {
     this.appendValueInput("NAME")
@@ -135,7 +135,7 @@ pythonGenerator.forBlock['printextra'] = function(block) {
   return code;
 };
 
-
+// extra block
 Blockly.Blocks['extra'] = {
     init: function() {
         this.appendValueInput("NAME1")
@@ -158,7 +158,7 @@ pythonGenerator.forBlock['extra'] = function(block) {
   return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
-
+// end block
 Blockly.Blocks['end'] = {
   init: function() {
     this.appendDummyInput()
@@ -175,8 +175,7 @@ pythonGenerator.forBlock['end'] = function(block) {
   return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
-
-// Simple print block with default text
+// print_default block
 Blockly.Blocks['print_default'] = {
   init: function() {
     this.appendDummyInput()
@@ -195,9 +194,7 @@ pythonGenerator.forBlock['print_default'] = function(block) {
   return `print(${JSON.stringify(text)})\n`;
 };
 
-
-
-// Print block with input field
+// print_input block
 Blockly.Blocks['print_input'] = {
   init: function() {
     this.appendDummyInput()
@@ -215,7 +212,7 @@ pythonGenerator.forBlock['print_input'] = function(block) {
   return [`print(${JSON.stringify(text)})`, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
-// Print block: print default + value
+// print_concat_value block
 Blockly.Blocks['print_concat_value'] = {
   init: function() {
     this.appendDummyInput()
@@ -238,7 +235,7 @@ pythonGenerator.forBlock['print_concat_value'] = function(block) {
   return `print(${JSON.stringify(text)} + str(${value}))\n`;
 };
 
-// Print block: print default + string
+// print_concat_string block
 Blockly.Blocks['print_concat_string'] = {
   init: function() {
     this.appendDummyInput()

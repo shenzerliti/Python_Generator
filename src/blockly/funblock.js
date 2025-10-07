@@ -1,7 +1,6 @@
 import "blockly/blocks";
-import { pythonGenerator } from "blockly/python";
+import { pythonGenerator } from "blockly/python"; // Correct for Blockly 8.x custom generators
 import * as Blockly from "blockly/core";
-
 
 // Function definition block
 Blockly.Blocks['def_func'] = {
@@ -16,7 +15,7 @@ Blockly.Blocks['def_func'] = {
         .setCheck("statement");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour("#FF4500");
+    this.setColour('#ff3396');
     this.setTooltip("Define a function");
     this.setHelpUrl("");
   }
@@ -29,7 +28,7 @@ pythonGenerator.forBlock['def_func'] = function(block) {
   if (!statements.trim()) {
     statements = "    pass\n"; // ✅ avoid empty body error
   }
-    const indented = statements.split("\n").map(line => line ? "    " + line : "").join("\n");
+  const indented = statements.split("\n").map(line => line ? "    " + line : "").join("\n");
   var code = `def ${funcName}(${params}):\n${indented}\n`;
   return code;
 };
@@ -46,7 +45,7 @@ Blockly.Blocks['func_call_stmt'] = {
         .appendField("# function call");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour("#FF4500");
+    this.setColour('#ff3396');
     this.setTooltip("Call a function (statement)");
     this.setHelpUrl("");
   }
@@ -70,7 +69,7 @@ Blockly.Blocks['func_call'] = {
         .appendField(")")
         .appendField("# function call");
     this.setOutput(true, null);
-    this.setColour("#FF4500");
+    this.setColour('#ff3396');
     this.setTooltip("Call a function (output)");
     this.setHelpUrl("");
   }
@@ -90,7 +89,7 @@ Blockly.Blocks['return'] = {
         .setCheck(null)
         .appendField("return");
     this.setPreviousStatement(true, null);
-    this.setColour("#FF4500");
+    this.setColour('#ff3396');
     this.setTooltip("Return a value");
     this.setHelpUrl("");
   }
@@ -116,7 +115,7 @@ Blockly.Blocks['lambda'] = {
         .setCheck(null);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour("#FF4500");
+    this.setColour('#ff3396');
     this.setTooltip("Lambda function");
     this.setHelpUrl("");
   }
@@ -148,7 +147,7 @@ Blockly.Blocks['fu1'] = {
         .setCheck(null);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour("#FF4500");
+    this.setColour('#ff3396');
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -174,7 +173,7 @@ Blockly.Blocks['fu2'] = {
     this.appendDummyInput()
         .appendField(") # function call");
     this.setOutput(true, null);
-    this.setColour('#FF4500');
+    this.setColour('#ff3396');
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -197,7 +196,7 @@ Blockly.Blocks['fu3'] = {
         .appendField(")");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#FF4500');
+    this.setColour('#ff3396');
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -221,7 +220,7 @@ Blockly.Blocks['fu4'] = {
     this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#FF4500');
+    this.setColour('#ff3396');
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -250,7 +249,7 @@ Blockly.Blocks['fu5'] = {
     this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#FF4500');
+    this.setColour('#ff3396');
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -279,7 +278,7 @@ Blockly.Blocks['fun'] = {
         .appendField(") # function call");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#FF4500');
+    this.setColour('#ff3396');
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -301,7 +300,7 @@ Blockly.Blocks['global'] = {
     this.appendDummyInput();
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#FF4500');
+    this.setColour('#ff3396');
     this.setTooltip("");
     this.setHelpUrl("");
   }
@@ -322,7 +321,7 @@ Blockly.Blocks['func'] = {
         .appendField("()");
     this.appendStatementInput("BODY")
         .setCheck(null);
-    this.setColour("#FF4500");
+    this.setColour('#ff3396');
     this.setTooltip("Simple function with return support");
     this.setHelpUrl("");
   }

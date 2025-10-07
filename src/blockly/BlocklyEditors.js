@@ -1,8 +1,7 @@
-// src/components/BlocklyEditor.js
 import React, { useRef, useEffect, useState } from "react";
 import * as Blockly from "blockly";
 import "blockly/blocks";
-import { pythonGenerator } from "blockly/python";
+import { pythonGenerator } from "blockly/python"; // <-- Correct import for custom Python generators
 import toolboxCategories from "./toolboxCategories";
 // import "./customBlocks";
 // import "./customPythonGenerators";
@@ -16,6 +15,12 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [showOutput, setShowOutput] = useState(false);
+
+  // --- Prevent auto "var = None" initialization ---
+  pythonGenerator.finish = function(code) {
+    // Just return the user-generated code
+    return code;
+  };
 
   // --- Patch: prevent flyout clear errors (known Blockly bug) ---
   useEffect(() => {
@@ -33,7 +38,7 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
   useEffect(() => {
     const workspace = Blockly.inject(blocklyDiv.current, {
       toolbox: toolboxCategories,
-      collapse: true,           // allow blocks to collapse
+      collapse: true,
       comments: true,
       disable: false,
       maxBlocks: Infinity,
@@ -50,6 +55,10 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
         minScale: 0.3,
         scaleSpeed: 1.2,
       },
+      renderer: "zelos",
+      toolboxOptions: {
+        html: true
+      }
     });
 
     workspaceRef.current = workspace;
@@ -61,11 +70,10 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
 
     // ✅ Define listener separately so we can remove it later
     const updateCode = () => {
-        if (!workspaceRef.current) return;
+      if (!workspaceRef.current) return;
       try {
         pythonGenerator.init(workspace);
         const liveCode = pythonGenerator.workspaceToCode(workspace);
-        pythonGenerator.finish();
         setCode(liveCode);
         setShowOutput(false);
       } catch (err) {
@@ -90,23 +98,21 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
       try {
         pythonGenerator.init(workspaceRef.current);    // 🔹 Initialize
         // Custom code generation: skip 'varinput' blocks
-      let code = '';
-      const blocks = workspaceRef.current.getTopBlocks(true);
-      for (let i = 0; i < blocks.length; i++) {
-        const block = blocks[i];
-        if (block.type !== 'varinput') {
-          code += pythonGenerator.blockToCode(block);
+        let code = '';
+        const blocks = workspaceRef.current.getTopBlocks(true);
+        for (let i = 0; i < blocks.length; i++) {
+          const block = blocks[i];
+          if (block.type !== 'varinput') {
+            code += pythonGenerator.blockToCode(block);
+          }
         }
+        setCode(pythonGenerator.finish(code));
+        setShowOutput(false);
+      } catch (err) {
+        console.error("Python generation failed:", err);
       }
-
-      pythonGenerator.finish(); 
-      setCode(code);
-      setShowOutput(false);
-    } catch (err) {
-      console.error("Python generation failed:", err);
     }
-  }
-};
+  };
 
   // Run Python code using Skulpt
   const runCode = () => {
@@ -138,11 +144,11 @@ export default function BlocklyEditor({ onWorkspaceReady }) {
           window.Sk.importMainWithBody("<stdin>", false, code, true)
         )
         .then(() => {
-           // Remove the first line from output
-    setOutput((prev) => {
-      const lines = prev.split('\n');
-      return lines.slice(1).join('\n');
-    });
+          // Remove the first line from output
+          setOutput((prev) => {
+            const lines = prev.split('\n');
+            return lines.slice(1).join('\n');
+          });
           console.log("Execution finished");
         })
         .catch((err) => {

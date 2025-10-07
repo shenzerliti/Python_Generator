@@ -1,5 +1,5 @@
 import "blockly/blocks";
-import { pythonGenerator } from "blockly/python";
+import { pythonGenerator } from "blockly/python"; // Correct for Blockly 8.x custom generators
 import * as Blockly from "blockly/core";
 
 Blockly.Blocks['if'] = {
@@ -25,7 +25,6 @@ pythonGenerator.forBlock['if'] = function (block) {
     return code;
 };
 
-
 Blockly.Blocks['elif3'] = {
     init: function () {
         this.appendValueInput("NAME")
@@ -49,7 +48,6 @@ pythonGenerator.forBlock['elif3'] = function (block) {
     return code;
 };
 
-
 Blockly.Blocks['else'] = {
     init: function() {
         this.appendDummyInput()
@@ -69,7 +67,6 @@ pythonGenerator.forBlock['else'] = function(block) {
     var code = 'else:\n' + statements_name;
     return code;
 };
-
 
 Blockly.Blocks['whilenew'] = {
     init: function() {

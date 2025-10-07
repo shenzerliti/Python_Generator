@@ -1,6 +1,6 @@
 import "blockly/blocks";
-import { pythonGenerator } from "blockly/python";
 import * as Blockly from "blockly/core";
+import { pythonGenerator } from "blockly/python"; // Correct import for Blockly 8.x custom generators
 
 // Sleep block
 Blockly.Blocks['m1'] = {

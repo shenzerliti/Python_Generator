@@ -18,3 +18,4 @@ import "./objectblock";
 import "./text";
 import "./time";
 import "./random";
+import "./math";

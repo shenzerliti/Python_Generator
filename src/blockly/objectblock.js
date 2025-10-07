@@ -14,7 +14,7 @@ Blockly.Blocks['o1'] = {
     this.appendDummyInput()
         .appendField(")");
     this.setOutput(true, null);
-    this.setColour('#FFA07A');
+    this.setColour('#FF0000');
   }
 };
 
@@ -35,7 +35,7 @@ Blockly.Blocks['o2'] = {
         .appendField(new Blockly.FieldVariable("object_name"), "NAME");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#FFA07A');
+    this.setColour('#FF0000');
   }
 };
 
@@ -55,7 +55,7 @@ Blockly.Blocks['o3'] = {
     this.appendValueInput("NAME1")
         .setCheck(null);
     this.setOutput(true, null);
-    this.setColour('#FFA07A');
+    this.setColour('#FF0000');
   }
 };
 
@@ -73,7 +73,7 @@ Blockly.Blocks['o4'] = {
     this.appendDummyInput()
         .appendField("()");
     this.setOutput(true, null);
-    this.setColour('#FFA07A');
+    this.setColour('#FF0000');
   }
 };
 

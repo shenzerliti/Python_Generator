@@ -1,7 +1,6 @@
 import "blockly/blocks";
-import { pythonGenerator } from "blockly/python";
+import { pythonGenerator } from "blockly/python"; // Correct for Blockly 8.x custom generators
 import * as Blockly from "blockly/core";
-
 
 // ---------------- Open File Block ----------------
 Blockly.Blocks['f1'] = {

@@ -1,5 +1,5 @@
 import "blockly/blocks";
-import { pythonGenerator } from "blockly/python";
+import { pythonGenerator } from "blockly/python"; // <-- Correct import for custom Python generators
 import * as Blockly from "blockly/core";
 
 /* ---------- d1 block (dictionary init with values) ---------- */
