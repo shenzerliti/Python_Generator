@@ -30,30 +30,23 @@ function FileOpenSaveButtons({ workspace }) {
   };
 
   // --- SAVE ---
-  const handleSaveClick = () => {
-    if (!workspace) {
-      alert("No workspace available to save.");
-      return;
-    }
+ const handleSaveClick = () => {
+  if (!workspace) {
+    alert("No workspace available to save.");
+    return;
+  }
 
-    // Generate Python code from the Blockly workspace
-    let code = "";
-    const blocks = workspace.getTopBlocks(true);
-    blocks.forEach((block) => {
-      if (block.type !== "varinput") {
-        const blockCode = pythonGenerator.blockToCode(block); // <--- use pythonGenerator!
-        code += Array.isArray(blockCode) ? blockCode[0] : blockCode;
-      }
-    });
+  // ✅ Generate Python code for the entire workspace
+  const code = pythonGenerator.workspaceToCode(workspace);
 
-    if (!code.trim()) {
-      alert("No Python code generated to save.");
-      return;
-    }
+  if (!code.trim()) {
+    alert("No Python code generated to save.");
+    return;
+  }
 
-    // Download as .py file
-    downloadFile(code, "generated_code.py", "text/x-python-script");
-  };
+  // ✅ Download as .py file
+  downloadFile(code, "generated_code.py", "text/x-python-script");
+};
 
   // --- Download helper ---
   const downloadFile = (content, filename, type) => {

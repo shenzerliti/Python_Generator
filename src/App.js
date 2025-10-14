@@ -11,7 +11,7 @@ const [workspace, setWorkspace] = useState(null);
       {/* Navbar */}
       <div className="navbar">
         <div className="navbar-left">
-          <img src="/images/logo.png" alt="Logo" className="logo-img" />
+          <img src="/images/new.png" alt="Logo" className="logo-img" />
         </div>
 
         <div className="navbar-right">
