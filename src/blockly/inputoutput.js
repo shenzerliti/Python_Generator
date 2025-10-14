@@ -6,7 +6,7 @@ import * as Blockly from "blockly/core";
 Blockly.Blocks['varnum'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField(new Blockly.FieldTextInput("   "), "VALUE")
+            .appendField(new Blockly.FieldTextInput(" "), "VALUE")
             .appendField(" # to insert a no. or string");
         this.setOutput(true, null);
         this.setColour('#D15C08');
@@ -32,7 +32,7 @@ Blockly.Blocks['inputno'] = {
             .appendField(new Blockly.FieldDropdown([["int","int"], ["float","float"], ["complex","complex"]]), "TYPE")
             .appendField("input (");
         this.appendDummyInput()
-            .appendField(new Blockly.FieldTextInput("   "), "PROMPT")
+            .appendField(new Blockly.FieldTextInput(" "), "PROMPT")
             .appendField(") # to input a number");
         this.setOutput(true, null);
         this.setColour('#D15C08');
@@ -54,7 +54,7 @@ Blockly.Blocks['inputstr'] = {
         this.appendDummyInput()
             .appendField("input (");
         this.appendDummyInput()
-            .appendField(new Blockly.FieldTextInput("   "), "PROMPT")
+            .appendField(new Blockly.FieldTextInput(" "), "PROMPT")
             .appendField(") # to input a string value");
         this.setOutput(true, null);
         this.setColour('#D15C08');

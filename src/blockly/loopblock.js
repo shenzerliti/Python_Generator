@@ -31,9 +31,14 @@ Blockly.Blocks['for_range'] = {
     this.appendDummyInput()
         .appendField("for")
         .appendField(new Blockly.FieldVariable("i"), "VAR")
-        .appendField("in range");
-    this.appendValueInput("RANGE")
-        .setCheck(null);
+        .appendField("in range (");
+    this.appendValueInput("START")
+        .setCheck("Number")
+        .appendField("from");
+    this.appendValueInput("END")
+        .setCheck("Number")
+        .appendField("to");
+    this.appendDummyInput().appendField(")");
     this.appendStatementInput("DO")
         .setCheck(null)
         .appendField("do");
@@ -44,11 +49,12 @@ Blockly.Blocks['for_range'] = {
 };
 
 pythonGenerator.forBlock['for_range'] = function(block) {
-  var range = pythonGenerator.valueToCode(block, 'RANGE', pythonGenerator.ORDER_NONE) || '0';
-  var statements = pythonGenerator.statementToCode(block, 'DO');
+  var start = pythonGenerator.valueToCode(block, 'START', pythonGenerator.ORDER_NONE) || '0';
+  var end = pythonGenerator.valueToCode(block, 'END', pythonGenerator.ORDER_NONE) || '0';
+  var statements = pythonGenerator.statementToCode(block, 'DO') || '';
   var varId = block.getFieldValue('VAR');
   var varName = pythonGenerator.nameDB_.getName(varId, Blockly.VARIABLE_CATEGORY_NAME);
-  var code = `for ${varName} in range(${range}):\n${pythonGenerator.prefixLines(statements, pythonGenerator.INDENT)}`;
+  var code = `for ${varName} in range(${start}, ${end}):\n${pythonGenerator.prefixLines(statements, pythonGenerator.INDENT)}`;
   return code;
 };
 
