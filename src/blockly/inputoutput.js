@@ -41,11 +41,27 @@ Blockly.Blocks['inputno'] = {
     }
 };
 
+// inputno generator (updated)
 pythonGenerator.forBlock['inputno'] = function(block) {
-    var dropdown_type = block.getFieldValue('TYPE') || "int";
-    var prompt = block.getFieldValue('PROMPT') || '';
-    var code = `${dropdown_type}(input(${JSON.stringify(prompt)}))`;
-    return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+  var dropdown_type = block.getFieldValue('TYPE') || "int";
+  var prompt = block.getFieldValue('PROMPT') || '';
+
+  // If a value was collected from the web popup, emit the literal instead of input(...)
+  if (typeof block.userInput !== 'undefined' && block.userInput !== null) {
+    var value = block.userInput;
+    // Try to coerce to the correct numeric literal if appropriate
+    if (dropdown_type === 'int' && !isNaN(value)) {
+      return [String(parseInt(value, 10)), pythonGenerator.ORDER_ATOMIC];
+    } else if (dropdown_type === 'float' && !isNaN(value)) {
+      return [String(parseFloat(value)), pythonGenerator.ORDER_ATOMIC];
+    } else {
+      // fallback: quote as string
+      return [JSON.stringify(String(value)), pythonGenerator.ORDER_ATOMIC];
+    }
+  }
+
+  var code = `${dropdown_type}(input(${JSON.stringify(prompt)}))`;
+  return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
 // inputstr block: User enters prompt text directly in the space
@@ -64,9 +80,15 @@ Blockly.Blocks['inputstr'] = {
 };
 
 pythonGenerator.forBlock['inputstr'] = function(block) {
-    var prompt = block.getFieldValue('PROMPT') || '';
-    var code = `input(${JSON.stringify(prompt)})`;
-    return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+  var prompt = block.getFieldValue('PROMPT') || '';
+
+  // If a value was collected from the web popup, emit the literal string
+  if (typeof block.userInput !== 'undefined' && block.userInput !== null) {
+    return [JSON.stringify(String(block.userInput)), pythonGenerator.ORDER_FUNCTION_CALL];
+  }
+
+  var code = `input(${JSON.stringify(prompt)})`;
+  return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
 // print block

@@ -134,3 +134,53 @@
   margin-bottom: 0.5em;
   border-radius: 20px;
 }
+/* default variables (can be overridden per-popup) */
+.my-swal-popup {
+  --swal-confirm-w: 96px;
+  --swal-confirm-h: 40px;
+  --swal-cancel-w: 96px;
+  --swal-cancel-h: 40px;
+  --swal-confirm-bg: linear-gradient(90deg,#ff8800,#ff8800);
+  --swal-cancel-bg: transparent;
+  --swal-confirm-color: #02202a;
+  --swal-cancel-color: #c9d8e8;
+}
+
+/* Confirm button (primary) */
+.my-swal-confirm {
+  width: var(--swal-confirm-w);
+  height: var(--swal-confirm-h);
+  padding: 1 16px;
+  border-radius: 20px;
+  background: var(--swal-confirm-bg);
+  color: var(--swal-confirm-color);
+  font-weight: 700;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0,160,255,0.18);
+  transition: transform .08s ease, box-shadow .12s ease;
+}
+
+/* Cancel button (ghost) */
+.my-swal-cancel {
+  width: var(--swal-cancel-w);
+  height: var(--swal-cancel-h);
+  padding: 1 16px;
+  border-radius: 20px;
+  background: var(--swal-cancel-bg);
+  color: var(--swal-cancel-color);
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .12s ease, transform .06s ease;
+}
+
+/* Hover/Active states */
+.my-swal-confirm:hover { transform: translateY(-2px); filter: brightness(1.03); }
+.my-swal-cancel:hover { background: rgba(255,255,255,0.03); transform: translateY(-1px); }
